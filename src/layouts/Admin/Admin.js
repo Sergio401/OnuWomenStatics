@@ -22,7 +22,6 @@ import PerfectScrollbar from "perfect-scrollbar";
 
 // core components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import Footer from "components/Footer/Footer.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
@@ -84,14 +83,7 @@ function Admin(props) {
       }
     });
   };
-  const getBrandText = (path) => {
-    for (let i = 0; i < routes.length; i++) {
-      if (location.pathname.indexOf(routes[i].layout + routes[i].path) !== -1) {
-        return routes[i].name;
-      }
-    }
-    return "Brand";
-  };
+
   return (
     <BackgroundColorContext.Consumer>
       {({ color, changeColor }) => (
@@ -99,7 +91,7 @@ function Admin(props) {
           <div className="wrapper">
             <div className="main-panel" ref={mainPanelRef} data={color}>
               <AdminNavbar
-                brandText={getBrandText(location.pathname)}
+                brandText="Estadísticas Chatbot"
               />
               <Switch>
                 {getRoutes(routes)}
