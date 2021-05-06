@@ -49,13 +49,13 @@ function Dashboard() {
                 <h5 className="card-category">Edad</h5>
                 <CardTitle tag="h3">
                   <i className="tim-icons icon-single-02 text-primary" />{" "}
-                  Cantidad de Personas
+                  Edad
                 </CardTitle>
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
                   <Bar
-                      data={chartExample3.data}
+                      data={chartExample3.data_age}
                       options={chartExample3.options}
                   />
                 </div>
@@ -68,13 +68,13 @@ function Dashboard() {
                 <h5 className="card-category">Género</h5>
                 <CardTitle tag="h3">
                   <i className="tim-icons icon-single-02 text-primary" />{" "}
-                  Cantidad de Personas
+                  Género
                 </CardTitle>
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
                   <Bar
-                    data={chartExample3.data}
+                    data={chartExample3.data_gender}
                     options={chartExample3.options}
                   />
                 </div>
@@ -87,19 +87,59 @@ function Dashboard() {
                 <h5 className="card-category">Nacionalidad</h5>
                 <CardTitle tag="h3">
                   <i className="tim-icons icon-single-02 text-primary" />{" "}
-                  Cantidad de Personas
+                  Nacionalidad
                 </CardTitle>
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
                   <Bar
-                      data={chartExample3.data}
+                      data={chartExample3.data_nationality}
                       options={chartExample3.options}
                   />
                 </div>
               </CardBody>
             </Card>
           </Col>
+        </Row>
+        <Row className={"justify-content-center"}>
+            <Col lg="4">
+                <Card className="card-chart">
+                    <CardHeader>
+                        <h5 className="card-category">No Mensajes x U.Tiempo</h5>
+                        <CardTitle tag="h3">
+                            <i className="tim-icons icon-single-02 text-primary" />{" "}
+                            No Mensajes X U.Tiempo
+                        </CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <div className="chart-area">
+                            <Bar
+                                data={chartExample3.data_message}
+                                options={chartExample3.options}
+                            />
+                        </div>
+                    </CardBody>
+                </Card>
+            </Col>
+            <Col lg="4">
+                <Card className="card-chart">
+                    <CardHeader>
+                        <h5 className="card-category">Servicios mas solicitados</h5>
+                        <CardTitle tag="h3">
+                            <i className="tim-icons icon-single-02 text-primary" />{" "}
+                            Servicios mas solicitados
+                        </CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <div className="chart-area">
+                            <Bar
+                                data={chartExample3.data_services}
+                                options={chartExample3.options}
+                            />
+                        </div>
+                    </CardBody>
+                </Card>
+            </Col>
         </Row>
       </div>
     </>

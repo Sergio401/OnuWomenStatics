@@ -95,6 +95,7 @@ function Admin(props) {
               />
               <Switch>
                 {getRoutes(routes)}
+                <Redirect from="*" to="/admin/login" />
                 <Redirect from="*" to="/admin/dashboard" />
               </Switch>
             </div>
