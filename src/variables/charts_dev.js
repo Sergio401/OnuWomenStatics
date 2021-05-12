@@ -251,6 +251,7 @@ let chartExample2 = {
   options: chart1_2_options,
 };
 
+
 // #########################################
 // // // used inside src/views/Dashboard.js
 // #########################################

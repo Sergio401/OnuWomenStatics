@@ -29,7 +29,7 @@ import { BackgroundColorContext } from "contexts/BackgroundColorContext";
 
 var ps;
 
-function Admin(props) {
+function Admin() {
   const location = useLocation();
   const mainPanelRef = React.useRef(null);
 
@@ -95,7 +95,6 @@ function Admin(props) {
               />
               <Switch>
                 {getRoutes(routes)}
-                <Redirect from="*" to="/admin/login" />
                 <Redirect from="*" to="/admin/dashboard" />
               </Switch>
             </div>
