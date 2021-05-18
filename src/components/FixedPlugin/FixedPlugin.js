@@ -44,10 +44,17 @@ function FixedPlugin(props) {
                     onClick={() => changeTheme(themes.light)}
                   />{" "}
                   <Badge
-                    className="dark-badge ml-2"
+                    className="black-badge ml-2"
                     onClick={() => changeTheme(themes.dark)}
                   />{" "}
                   <span className="color-label">DARK MODE</span>{" "}
+                  <br/>
+                  <span className="color-label">DEFAULT MODE</span>{" "}
+                  <Badge
+                    className="dark-badge ml-2"
+                    onClick={() => changeTheme(themes.default)}
+                  />{" "}
+                  
                 </>
               )}
             </ThemeContext.Consumer>

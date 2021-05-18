@@ -86,7 +86,7 @@
         border-color: $black-states;
     }
 
-    .light-badge, .dark-badge{
+    .light-badge, .dark-badge, .black-badge{
       margin:0;
       border: 1px solid $info;
       &:hover{
@@ -105,6 +105,13 @@
       background: $black;
       &:hover{
         background: $black;
+      }
+    }
+
+    .black-badge{
+      background: $table-dark-bg;
+      &:hover{
+        background: $table-dark-bg;
       }
     }
 
