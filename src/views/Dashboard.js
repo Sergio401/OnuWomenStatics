@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, {useState, useEffect} from "react";
+import React from "react";
 
 import {
     Bar,
@@ -39,43 +39,393 @@ import {
 
 // core components
 import {
-  chartExample3,
-  chartExample4,
+    chartExample3,
+    chartExample4,
 } from "variables/charts.js";
 
-function Dashboard() {
+import { API, requestOptions, APIRequest } from "variables/utils";
 
-    // API REQUEST
-    const API = "https://chatbotmetrics.mybluemix.net"
+//function Dashboard() {
+class Dashboard extends React.Component {
 
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "text/plain");
+    constructor(props) {
+        super(props);
 
-    let raw = "{\"month\":5,\n\"year\":2021}";
+        this.state = {
+            month: new Date().getMonth() + 1,
+            year: new Date().getFullYear(),
+            age: {},
+            gender: {},
+            nationality: {},
+            services: {},
+            messages: {},
+            satisfaction: {},
+            timer: undefined,
+        }
+        console.log(`STATE ORIGIN\n\n\n${JSON.stringify(this.state)}\n\n\n`)
+    }
 
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
+    componentDidMount() {
+        this.requestData(); //For first rendering
 
-    //STATE AND CHARTS,
+        //setTimeout(() => {
+        //    this.forceUpdate();
+        //}, 500);
 
-    const [age, setAge] = useState({})
-    const [gender, setGender] = useState({})
-    const [nationality, setNationality] = useState({})
-    const [services, setServices] = useState({})
-    const [messages, setMessages] = useState({})
-    const [satisfaction, setSatisfaction] = useState({})
+        this.setState({
+            timer: setInterval(() => {
+                this.requestData();
+                console.log('requested!')
+                //this.forceUpdate();
+            }, 30000)
+        });
+    }
 
-    let chartBar = () => {
+    componentWillUnmount() {
+        clearInterval(this.state.timer);
+    }
+
+    render() {
+        return (<>
+            <div className="content">
+                <Form>
+                    <Row form className="searchConsult">
+                        <FormGroup className="form_month">
+                            <Label for="month">Mes</Label>
+                            <Input type="select" name="select" id="month">
+                                <option defaultValue hidden value=''>Seleccione un mes</option>
+                                <option value='1'>Enero</option>
+                                <option value='2'>Febrero</option>
+                                <option value='3'>Marzo</option>
+                                <option value='4'>Abril</option>
+                                <option value='5'>Mayo</option>
+                                <option value='6'>Junio</option>
+                                <option value='7'>Julio</option>
+                                <option value='8'>Agosto</option>
+                                <option value='9'>Septiembre</option>
+                                <option value='10'>Octubre</option>
+                                <option value='11'>Noviembre</option>
+                                <option value='12'>Diciembre</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup className="form_month">
+                            <Label for="year">Año</Label>
+                            <Input type="select" name="select" id="year">
+                                <option defaultValue hidden value=''>Seleccione un año</option>
+                                <option>2021</option>
+                                <option>2022</option>
+                                <option>2023</option>
+                                <option>2024</option>
+                                <option>2025</option>
+                            </Input>
+                        </FormGroup>
+                        <FormGroup className="form_month">
+                            <Button className="button_form" onClick={this.updateRequestDate}>Consultar</Button>
+                        </FormGroup>
+                    </Row>
+                </Form>
+
+                <Row>
+                    <Col lg="4">
+                        <Card className="card-chart">
+                            <CardHeader>
+                                <h5 className="card-category">Edad</h5>
+                                <CardTitle tag="h3">
+                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                  Edad
+                </CardTitle>
+                            </CardHeader>
+                            <CardBody>
+                                <div className="chart-area">
+                                    <Bar
+                                        data={this.state.age}
+                                        options={chartExample3.options}
+                                    />
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                    <Col lg="4">
+                        <Card className="card-chart">
+                            <CardHeader>
+                                <h5 className="card-category">Género</h5>
+                                <CardTitle tag="h3">
+                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                  Género
+                </CardTitle>
+                            </CardHeader>
+                            <CardBody>
+                                <div className="chart-area">
+                                    <Bar
+                                        data={this.state.gender}
+                                        options={chartExample3.options}
+                                    />
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                    <Col lg="4">
+                        <Card className="card-chart">
+                            <CardHeader>
+                                <h5 className="card-category">Nacionalidad</h5>
+                                <CardTitle tag="h3">
+                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                  Nacionalidad
+                </CardTitle>
+                            </CardHeader>
+                            <CardBody>
+                                <div className="chart-area">
+                                    <Bar
+                                        data={this.state.nationality}
+                                        options={chartExample3.options}
+                                    />
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col lg="4">
+                        <Card className="card-chart">
+                            <CardHeader>
+                                <h5 className="card-category">No Mensajes x U.Tiempo</h5>
+                                <CardTitle tag="h3">
+                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                            N° de Mensajes X Día
+                        </CardTitle>
+                            </CardHeader>
+                            <CardBody>
+                                <div className="chart-area">
+                                    <Line
+                                        data={this.state.messages}
+                                        options={chartExample4.options}
+                                    />
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                    <Col lg="4">
+                        <Card className="card-chart">
+                            <CardHeader>
+                                <h5 className="card-category">Servicios mas solicitados</h5>
+                                <CardTitle tag="h3">
+                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                            Servicios mas solicitados
+                        </CardTitle>
+                            </CardHeader>
+                            <CardBody>
+                                <div className="chart-area">
+                                    <Bar
+                                        data={this.state.services}
+                                        options={chartExample3.options}
+                                    />
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                    <Col lg="4">
+                        <Card className="card-chart">
+                            <CardHeader>
+                                <h5 className="card-category">Satisfacción Usuario</h5>
+                                <CardTitle tag="h3">
+                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                            ¿Se resolvió la duda?
+                        </CardTitle>
+                            </CardHeader>
+                            <CardBody>
+                                <div className="chart-area">
+                                    <Bar
+                                        data={this.state.satisfaction}
+                                        options={chartExample3.options}
+                                    />
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                </Row>
+            </div>
+        </>)
+    }
+
+    updateRequestDate = () => {
+        if ( document.getElementById("month").value !== '' &&  document.getElementById("year").value !== '') {
+            this.setState({
+                month: document.getElementById("month").value,
+                year: document.getElementById("year").value
+            }, this.requestData)
+        }
+    }
+
+    requestData = async () => {
+        let ageData = {};
+        let genderData = {};
+        let nationalityData = {};
+        let servicesData = {};
+        let messagesData = {};
+        let satisfactionData = {};
+
+        let raw = String.raw`{"month":${this.state.month},"year":${this.state.year}}`;
+
+        ageData = await APIRequest('/getedad/', { ...requestOptions, body: raw });
+        genderData = await APIRequest('/getgenero/', { ...requestOptions, body: raw });
+        nationalityData = await APIRequest('/getnacionalidad/', { ...requestOptions, body: raw });
+        servicesData = await APIRequest('/getcatsmenu/', { ...requestOptions, body: raw });
+        messagesData = await APIRequest('/getgeneral/', { ...requestOptions, body: raw });
+        satisfactionData = await APIRequest('/getsolution/', { ...requestOptions, body: raw });
+        
+        // ageData = await fetch(`${API}/getedad/`,  { ...requestOptions, body: raw })
+        //     .then(response => response.json())
+
+        // genderData = await fetch(`${API}/getgenero/`, { ...requestOptions, body: raw })
+        //     .then(response => response.json())
+
+        // nationalityData = await fetch(`${API}/getnacionalidad/`, { ...requestOptions, body: raw })
+        //     .then(response => response.json())
+
+        // servicesData = await fetch(`${API}/getcatsmenu/`, { ...requestOptions, body: raw })
+        //     .then(response => response.json())
+
+        // messagesData = await fetch(`${API}/getgeneral/`, { ...requestOptions, body: raw })
+        //     .then(response => response.json())
+
+        // satisfactionData = await fetch(`${API}/getsolution/`, { ...requestOptions, body: raw })
+        //     .then(response => response.json())
+
+        //LOG FOR VALIDATE JSON RESPONSE
+        //await fetch(`${API}/getgenero/`, requestOptions)
+        //    .then(response => response.json())
+        //    .then(response => console.log(`\n\n\n\n\nLOG JSON\n\n\n${JSON.stringify(response)}\n\n`))
+
+        //console.log(`\n\n\n${JSON.stringify(ageData)}\n\n`)
+        //console.log(`\n\n\n${JSON.stringify(genderData)}\n\n`)
+        //console.log(`\n\n\n${JSON.stringify(nationalityData)}\n\n`)
+        //console.log(`\n\n\n${JSON.stringify(servicesData)}\n\n`)
+        //console.log(`\n\n\n${JSON.stringify(messagesData)}\n\n`)
+        //console.log(`\n\n\n${JSON.stringify(satisfactionData)}\n\n`)
+        
+        this.setState({
+            age: {
+                labels: Object.keys(ageData), // ["<18", "18-38", "38-47", ">47"],
+                datasets: [
+                    {
+                        label: "Edad",
+                        fill: true,
+                        backgroundColor: "rgba(66,134,121,0.15)",
+                        hoverBackgroundColor: "rgba(66,134,121,0.15)",
+                        borderColor: "#FF5397",
+                        borderWidth: 2,
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        data: Object.values(ageData),
+                    },
+                ],
+            },
+            gender: {
+                labels: Object.keys(genderData), // ["Mujer 💁‍♀", "LGTBIQ+ 🌈"],
+                datasets: [
+                    {
+                        label: "Genero",
+                        fill: true,
+                        backgroundColor: "rgba(119,52,169,0)",
+                        hoverBackgroundColor: "rgba(119,52,169,0)",
+                        borderColor: "#0089D0",
+                        borderWidth: 2,
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        data: Object.values(genderData),
+                    },
+                ],
+            },
+            nationality: {
+                labels: Object.keys(nationalityData), // ["🇨🇴", "🇨🇴 Ret", "Ven", "Otro"],
+                datasets: [
+                    {
+                        label: "Nacionalidad",
+                        fill: true,
+                        backgroundColor: "rgba(119,52,169,0)",
+                        hoverBackgroundColor: "rgba(119,52,169,0)",
+                        borderColor: "#FF7577",
+                        borderWidth: 2,
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        data: Object.values(nationalityData),
+                    },
+                ],
+            },
+            services: {
+                labels: Object.keys(servicesData), // ["Salud", "Violencia", "Migrantes", "Xenofobia", "Directorio", "Otros"],
+                datasets: [
+                    {
+                        label: "Servicios",
+                        fill: true,
+                        backgroundColor: "rgba(119,52,169,0)",
+                        hoverBackgroundColor: "rgba(119,52,169,0)",
+                        borderColor: "#d048b6",
+                        borderWidth: 2,
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        data: Object.values(servicesData),
+                    },
+                ],
+            },
+            messages: {
+                //labels: ["01", "02", "03", "04", "05", "06", "07",
+                //    "08", "09", "10", "11", "12", "13", "14", "15",
+                //    "16", "17", "18", "19", "20", "21", "22", "23",
+                //    "24", "25", "26", "27", "28", "29", "30",],
+                labels: Object.keys(messagesData),
+                datasets: [
+                    {
+                        label: "Mensajes por unidad de tiempo",
+                        fill: true,
+                        backgroundColor: "rgba(66,134,121,0)",
+                        borderColor: "#00d6b4",
+                        borderWidth: 2,
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        pointBackgroundColor: "#00d6b4",
+                        pointBorderColor: "rgba(255,255,255,0)",
+                        pointHoverBackgroundColor: "#00d6b4",
+                        pointBorderWidth: 20,
+                        pointHoverRadius: 4,
+                        pointHoverBorderWidth: 15,
+                        pointRadius: 4,
+                        data: Object.values(messagesData),
+                    },
+                ],
+            },
+            satisfaction: {
+                labels: Object.keys(satisfactionData), // ["Si", "No"],
+                datasets: [
+                    {
+                        label: "Respuesta",
+                        fill: true,
+                        backgroundColor: "rgba(119,52,169,0)",
+                        hoverBackgroundColor: "rgba(119,52,169,0)",
+                        borderColor: "#0089D0",
+                        borderWidth: 2,
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        data: Object.values(satisfactionData),
+                    },
+                ],
+            }
+        })
+        console.log('Updated');
+    }
+
+    requestDataWithoutLabels = () => {
         let ageData = [];
         let genderData = [];
         let nationalityData = [];
         let servicesData = [];
         let messagesData = [];
         let satisfactionData = [];
+
+        //LOG FOR VALIDATE JSON RESPONSE
+        //fetch(`${API}/getgeneral/`, requestOptions)
+        //    .then(response => response.json())
+        //    .then(response => console.log(`\n\n\n\n\nLOG JSON\n\n\n${JSON.stringify(response)}\n\n`))
 
         fetch(`${API}/getedad/`, requestOptions)
             .then(response => response.json())
@@ -107,291 +457,117 @@ function Dashboard() {
             .then(response => Object.values(response))
             .then(data => satisfactionData.push(...data))
 
-        setAge({
-            labels: ["<18", "18-38", "38-47", ">47"],
-            datasets: [
-                {
-                    label: "Edad",
-                    fill: true,
-                    backgroundColor: "rgba(66,134,121,0.15)",
-                    hoverBackgroundColor: "rgba(66,134,121,0.15)",
-                    borderColor: "#FF5397",
-                    borderWidth: 2,
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    data: ageData,
+        setTimeout(() => {
+            this.setState({
+                age: {
+                    labels: ["<18", "18-38", "38-47", ">47"],
+                    datasets: [
+                        {
+                            label: "Edad",
+                            fill: true,
+                            backgroundColor: "rgba(66,134,121,0.15)",
+                            hoverBackgroundColor: "rgba(66,134,121,0.15)",
+                            borderColor: "#FF5397",
+                            borderWidth: 2,
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            data: ageData,
+                        },
+                    ],
                 },
-            ],
-        })
-
-
-        setGender({
-            labels: ["Mujer 💁‍♀", "LGTBIQ+ 🌈"],
-            datasets: [
-                {
-                    label: "Genero",
-                    fill: true,
-                    backgroundColor: "rgba(119,52,169,0)",
-                    hoverBackgroundColor: "rgba(119,52,169,0)",
-                    borderColor: "#0089D0",
-                    borderWidth: 2,
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    data: genderData,
+                gender: {
+                    labels: ["Mujer 💁‍♀", "LGTBIQ+ 🌈"],
+                    datasets: [
+                        {
+                            label: "Genero",
+                            fill: true,
+                            backgroundColor: "rgba(119,52,169,0)",
+                            hoverBackgroundColor: "rgba(119,52,169,0)",
+                            borderColor: "#0089D0",
+                            borderWidth: 2,
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            data: genderData,
+                        },
+                    ],
                 },
-            ],
-        })
-
-        setNationality({
-            labels: ["🇨🇴", "🇨🇴 Ret", "Ven", "Otro"],
-            datasets: [
-                {
-                    label: "Nacionalidad",
-                    fill: true,
-                    backgroundColor: "rgba(119,52,169,0)",
-                    hoverBackgroundColor: "rgba(119,52,169,0)",
-                    borderColor: "#FF7577",
-                    borderWidth: 2,
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    data: nationalityData,
+                nationality: {
+                    labels: ["🇨🇴", "🇨🇴 Ret", "Ven", "Otro"],
+                    datasets: [
+                        {
+                            label: "Nacionalidad",
+                            fill: true,
+                            backgroundColor: "rgba(119,52,169,0)",
+                            hoverBackgroundColor: "rgba(119,52,169,0)",
+                            borderColor: "#FF7577",
+                            borderWidth: 2,
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            data: nationalityData,
+                        },
+                    ],
                 },
-            ],
-        })
-
-        setServices({
-            labels: ["Salud", "Violencia", "Migrantes", "Xenofobia", "Directorio", "Otros"],
-            datasets: [
-                {
-                    label: "Servicios",
-                    fill: true,
-                    backgroundColor: "rgba(119,52,169,0)",
-                    hoverBackgroundColor: "rgba(119,52,169,0)",
-                    borderColor: "#d048b6",
-                    borderWidth: 2,
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    data: servicesData,
+                services: {
+                    labels: ["Salud", "Violencia", "Migrantes", "Xenofobia", "Directorio", "Otros"],
+                    datasets: [
+                        {
+                            label: "Servicios",
+                            fill: true,
+                            backgroundColor: "rgba(119,52,169,0)",
+                            hoverBackgroundColor: "rgba(119,52,169,0)",
+                            borderColor: "#d048b6",
+                            borderWidth: 2,
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            data: servicesData,
+                        },
+                    ],
                 },
-            ],
-        })
-
-        setMessages({
-            labels: ["01", "02", "03", "04", "05", "06", "07",
-                "08", "09", "10", "11", "12","13", "14","15",
-                "16","17","18","19","20","21", "22", "23",
-                "24", "25", "26", "27", "28", "29","30",],
-            datasets: [
-                {
-                    label: "Mensajes por unidad de tiempo",
-                    fill: true,
-                    backgroundColor: "rgba(66,134,121,0)",
-                    borderColor: "#00d6b4",
-                    borderWidth: 2,
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    pointBackgroundColor: "#00d6b4",
-                    pointBorderColor: "rgba(255,255,255,0)",
-                    pointHoverBackgroundColor: "#00d6b4",
-                    pointBorderWidth: 20,
-                    pointHoverRadius: 4,
-                    pointHoverBorderWidth: 15,
-                    pointRadius: 4,
-                    data: messagesData,
+                messages: {
+                    labels: ["01", "02", "03", "04", "05", "06", "07",
+                        "08", "09", "10", "11", "12", "13", "14", "15",
+                        "16", "17", "18", "19", "20", "21", "22", "23",
+                        "24", "25", "26", "27", "28", "29", "30",],
+                    datasets: [
+                        {
+                            label: "Mensajes por unidad de tiempo",
+                            fill: true,
+                            backgroundColor: "rgba(66,134,121,0)",
+                            borderColor: "#00d6b4",
+                            borderWidth: 2,
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            pointBackgroundColor: "#00d6b4",
+                            pointBorderColor: "rgba(255,255,255,0)",
+                            pointHoverBackgroundColor: "#00d6b4",
+                            pointBorderWidth: 20,
+                            pointHoverRadius: 4,
+                            pointHoverBorderWidth: 15,
+                            pointRadius: 4,
+                            data: messagesData,
+                        },
+                    ],
                 },
-            ],
-        })
-
-        setSatisfaction({
-            labels: ["Si", "No"],
-            datasets: [
-                {
-                    label: "Servicios",
-                    fill: true,
-                    backgroundColor: "rgba(119,52,169,0)",
-                    hoverBackgroundColor: "rgba(119,52,169,0)",
-                    borderColor: "#0089D0",
-                    borderWidth: 2,
-                    borderDash: [],
-                    borderDashOffset: 0.0,
-                    data: satisfactionData,
-                },
-            ],
-        })
-
+                satisfaction: {
+                    labels: ["Si", "No"],
+                    datasets: [
+                        {
+                            label: "Servicios",
+                            fill: true,
+                            backgroundColor: "rgba(119,52,169,0)",
+                            hoverBackgroundColor: "rgba(119,52,169,0)",
+                            borderColor: "#0089D0",
+                            borderWidth: 2,
+                            borderDash: [],
+                            borderDashOffset: 0.0,
+                            data: satisfactionData,
+                        },
+                    ],
+                }
+            })
+        }, 1000);
     }
 
-    console.log(age)
-    console.log(messages)
-    console.log(gender)
-    console.log(nationality)
-    console.log(services)
-    console.log(satisfaction)
-
-
-    useEffect(() => {
-        chartBar();
-    }, []);
-
-    return (
-    <>
-      <div className="content">
-        <Form>
-           <Row form className="searchConsult">
-               <FormGroup className="form_month">
-                   <Label for="exampleSelect">Mes de Consulta</Label>
-                   <Input type="select" name="select" id="month">
-                       <option>Enero</option>
-                       <option>Febrero</option>
-                       <option>Marzo</option>
-                       <option>Abril</option>
-                       <option>Mayo</option>
-                       <option>Junio</option>
-                       <option>Julio</option>
-                       <option>Agosto</option>
-                       <option>Septiembre</option>
-                       <option>Octubre</option>
-                       <option>Noviembre</option>
-                       <option>Diciembre</option>
-                   </Input>
-               </FormGroup>
-               <FormGroup className="form_month">
-                   <Label for="exampleSelect">Año</Label>
-                   <Input type="select" name="select" id="year">
-                       <option>2021</option>
-                       <option>2022</option>
-                       <option>2023</option>
-                       <option>2024</option>
-                       <option>2025</option>
-                   </Input>
-               </FormGroup>
-               <FormGroup className="form_month">
-                   <Button className="button_form">Consultar</Button>
-               </FormGroup>
-           </Row>
-        </Form>
-
-        <Row>
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">Edad</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-single-02 text-primary" />{" "}
-                  Edad
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Bar
-                      data={age}
-                      options={chartExample3.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">Género</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-single-02 text-primary" />{" "}
-                  Género
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Bar
-                    data={gender}
-                    options={chartExample3.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">Nacionalidad</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-single-02 text-primary" />{" "}
-                  Nacionalidad
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Bar
-                      data={nationality}
-                      options={chartExample3.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-            <Col lg="4">
-                <Card className="card-chart">
-                    <CardHeader>
-                        <h5 className="card-category">No Mensajes x U.Tiempo</h5>
-                        <CardTitle tag="h3">
-                            <i className="tim-icons icon-single-02 text-primary" />{" "}
-                            No Mensajes X U.Tiempo
-                        </CardTitle>
-                    </CardHeader>
-                    <CardBody>
-                        <div className="chart-area">
-                            <Line
-                                data={messages}
-                                options={chartExample4.options}
-                            />
-                        </div>
-                    </CardBody>
-                </Card>
-            </Col>
-            <Col lg="4">
-                <Card className="card-chart">
-                    <CardHeader>
-                        <h5 className="card-category">Servicios mas solicitados</h5>
-                        <CardTitle tag="h3">
-                            <i className="tim-icons icon-single-02 text-primary" />{" "}
-                            Servicios mas solicitados
-                        </CardTitle>
-                    </CardHeader>
-                    <CardBody>
-                        <div className="chart-area">
-                            <Bar
-                                data={services}
-                                options={chartExample3.options}
-                            />
-                        </div>
-                    </CardBody>
-                </Card>
-            </Col>
-            <Col lg="4">
-                <Card className="card-chart">
-                    <CardHeader>
-                        <h5 className="card-category">Satisfacción Usuario</h5>
-                        <CardTitle tag="h3">
-                            <i className="tim-icons icon-single-02 text-primary" />{" "}
-                            Se resolvió la duda
-                        </CardTitle>
-                    </CardHeader>
-                    <CardBody>
-                        <div className="chart-area">
-                            <Bar
-                                data={satisfaction}
-                                options={chartExample3.options}
-                            />
-                        </div>
-                    </CardBody>
-                </Card>
-            </Col>
-        </Row>
-      </div>
-    </>
-  );
 }
 
 export default Dashboard;
