@@ -28,6 +28,7 @@ import {
     CardHeader,
     CardBody,
     CardTitle,
+    Collapse,
     Row,
     Col,
     Form,
@@ -54,13 +55,15 @@ class Dashboard extends React.Component {
         this.state = {
             month: new Date().getMonth() + 1,
             year: new Date().getFullYear(),
+            timer: undefined,
+            firstToogle: true,
+            secondToogle: true,
             age: {},
             gender: {},
             nationality: {},
             services: {},
             messages: {},
             satisfaction: {},
-            timer: undefined,
         }
         console.log(`STATE ORIGIN\n\n\n${JSON.stringify(this.state)}\n\n\n`)
     }
@@ -125,130 +128,155 @@ class Dashboard extends React.Component {
                     </Row>
                 </Form>
 
-                <Row>
-                    <Col lg="4">
-                        <Card className="card-chart">
-                            <CardHeader>
-                                <h5 className="card-category">Edad</h5>
-                                <CardTitle tag="h3">
-                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                <Card className="card-plain mb-0"> {/* bg-transparent or black content customization */}
+                    <CardHeader onClick={(e) => this.setState({ firstToogle: !this.state.firstToogle })}>
+                        <CardTitle tag="h3">
+                            <i className="tim-icons icon-badge" />{" "}
+                                        Información de Usuarias
+                                    </CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <Collapse isOpen={this.state.firstToogle}>
+                            <Row>
+                                <Col lg="4">
+                                    <Card className="card-chart">
+                                        <CardHeader>
+                                            <h5 className="card-category">Edad</h5>
+                                            <CardTitle tag="h3">
+                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
                   Edad
                 </CardTitle>
-                            </CardHeader>
-                            <CardBody>
-                                <div className="chart-area">
-                                    <Bar
-                                        data={this.state.age}
-                                        options={chartExample3.options}
-                                    />
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col lg="4">
-                        <Card className="card-chart">
-                            <CardHeader>
-                                <h5 className="card-category">Género</h5>
-                                <CardTitle tag="h3">
-                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                                        </CardHeader>
+                                        <CardBody>
+                                            <div className="chart-area">
+                                                <Bar
+                                                    data={this.state.age}
+                                                    options={chartExample3.options}
+                                                />
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                                <Col lg="4">
+                                    <Card className="card-chart">
+                                        <CardHeader>
+                                            <h5 className="card-category">Género</h5>
+                                            <CardTitle tag="h3">
+                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
                   Género
                 </CardTitle>
-                            </CardHeader>
-                            <CardBody>
-                                <div className="chart-area">
-                                    <Bar
-                                        data={this.state.gender}
-                                        options={chartExample3.options}
-                                    />
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col lg="4">
-                        <Card className="card-chart">
-                            <CardHeader>
-                                <h5 className="card-category">Nacionalidad</h5>
-                                <CardTitle tag="h3">
-                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                                        </CardHeader>
+                                        <CardBody>
+                                            <div className="chart-area">
+                                                <Bar
+                                                    data={this.state.gender}
+                                                    options={chartExample3.options}
+                                                />
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                                <Col lg="4">
+                                    <Card className="card-chart">
+                                        <CardHeader>
+                                            <h5 className="card-category">Nacionalidad</h5>
+                                            <CardTitle tag="h3">
+                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
                   Nacionalidad
                 </CardTitle>
-                            </CardHeader>
-                            <CardBody>
-                                <div className="chart-area">
-                                    <Bar
-                                        data={this.state.nationality}
-                                        options={chartExample3.options}
-                                    />
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col lg="4">
-                        <Card className="card-chart">
-                            <CardHeader>
-                                <h5 className="card-category">No Mensajes x U.Tiempo</h5>
-                                <CardTitle tag="h3">
-                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                                        </CardHeader>
+                                        <CardBody>
+                                            <div className="chart-area">
+                                                <Bar
+                                                    data={this.state.nationality}
+                                                    options={chartExample3.options}
+                                                />
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Collapse>
+                    </CardBody>
+                </Card>
+
+                <Card className="card-plain mb-0"> {/* bg-transparent or black content customization */}
+                    <CardHeader onClick={(e) => this.setState({ secondToogle: !this.state.secondToogle })}>
+                        <CardTitle tag="h3">
+                            <i className="tim-icons icon-chart-bar-32" />{" "}
+                                        Métricas ChatBot
+                                    </CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <Collapse isOpen={this.state.secondToogle}>
+                            <Row>
+                                <Col lg="4">
+                                    <Card className="card-chart">
+                                        <CardHeader>
+                                            <h5 className="card-category">N° de Mensajes X Día</h5>
+                                            <CardTitle tag="h3">
+                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
                             N° de Mensajes X Día
                         </CardTitle>
-                            </CardHeader>
-                            <CardBody>
-                                <div className="chart-area">
-                                    <Line
-                                        data={this.state.messages}
-                                        options={chartExample4.options}
-                                    />
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col lg="4">
-                        <Card className="card-chart">
-                            <CardHeader>
-                                <h5 className="card-category">Servicios mas solicitados</h5>
-                                <CardTitle tag="h3">
-                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
-                            Servicios mas solicitados
+                                        </CardHeader>
+                                        <CardBody>
+                                            <div className="chart-area">
+                                                <Line
+                                                    data={this.state.messages}
+                                                    options={chartExample4.options}
+                                                />
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                                <Col lg="4">
+                                    <Card className="card-chart">
+                                        <CardHeader>
+                                            <h5 className="card-category">Servicios más solicitados</h5>
+                                            <CardTitle tag="h3">
+                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
+                            Servicios Más Solicitados
                         </CardTitle>
-                            </CardHeader>
-                            <CardBody>
-                                <div className="chart-area">
-                                    <Bar
-                                        data={this.state.services}
-                                        options={chartExample3.options}
-                                    />
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col lg="4">
-                        <Card className="card-chart">
-                            <CardHeader>
-                                <h5 className="card-category">Satisfacción Usuario</h5>
-                                <CardTitle tag="h3">
-                                    <i className="tim-icons icon-single-02 text-primary" />{" "}
+                                        </CardHeader>
+                                        <CardBody>
+                                            <div className="chart-area">
+                                                <Bar
+                                                    data={this.state.services}
+                                                    options={chartExample3.options}
+                                                />
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                                <Col lg="4">
+                                    <Card className="card-chart">
+                                        <CardHeader>
+                                            <h5 className="card-category">Satisfacción de las Usuarias</h5>
+                                            <CardTitle tag="h3">
+                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
                             ¿Se resolvió la duda?
                         </CardTitle>
-                            </CardHeader>
-                            <CardBody>
-                                <div className="chart-area">
-                                    <Bar
-                                        data={this.state.satisfaction}
-                                        options={chartExample3.options}
-                                    />
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <div className="chart-area">
+                                                <Bar
+                                                    data={this.state.satisfaction}
+                                                    options={chartExample3.options}
+                                                />
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Collapse>
+                    </CardBody>
+                </Card>
             </div>
         </>)
     }
 
     updateRequestDate = () => {
-        if ( document.getElementById("month").value !== '' &&  document.getElementById("year").value !== '') {
+        if (document.getElementById("month").value !== '' && document.getElementById("year").value !== '') {
             this.setState({
                 month: document.getElementById("month").value,
                 year: document.getElementById("year").value
@@ -272,37 +300,7 @@ class Dashboard extends React.Component {
         servicesData = await APIRequest('/getcatsmenu/', { ...requestOptions, body: raw });
         messagesData = await APIRequest('/getgeneral/', { ...requestOptions, body: raw });
         satisfactionData = await APIRequest('/getsolution/', { ...requestOptions, body: raw });
-        
-        // ageData = await fetch(`${API}/getedad/`,  { ...requestOptions, body: raw })
-        //     .then(response => response.json())
 
-        // genderData = await fetch(`${API}/getgenero/`, { ...requestOptions, body: raw })
-        //     .then(response => response.json())
-
-        // nationalityData = await fetch(`${API}/getnacionalidad/`, { ...requestOptions, body: raw })
-        //     .then(response => response.json())
-
-        // servicesData = await fetch(`${API}/getcatsmenu/`, { ...requestOptions, body: raw })
-        //     .then(response => response.json())
-
-        // messagesData = await fetch(`${API}/getgeneral/`, { ...requestOptions, body: raw })
-        //     .then(response => response.json())
-
-        // satisfactionData = await fetch(`${API}/getsolution/`, { ...requestOptions, body: raw })
-        //     .then(response => response.json())
-
-        //LOG FOR VALIDATE JSON RESPONSE
-        //await fetch(`${API}/getgenero/`, requestOptions)
-        //    .then(response => response.json())
-        //    .then(response => console.log(`\n\n\n\n\nLOG JSON\n\n\n${JSON.stringify(response)}\n\n`))
-
-        //console.log(`\n\n\n${JSON.stringify(ageData)}\n\n`)
-        //console.log(`\n\n\n${JSON.stringify(genderData)}\n\n`)
-        //console.log(`\n\n\n${JSON.stringify(nationalityData)}\n\n`)
-        //console.log(`\n\n\n${JSON.stringify(servicesData)}\n\n`)
-        //console.log(`\n\n\n${JSON.stringify(messagesData)}\n\n`)
-        //console.log(`\n\n\n${JSON.stringify(satisfactionData)}\n\n`)
-        
         this.setState({
             age: {
                 labels: Object.keys(ageData), // ["<18", "18-38", "38-47", ">47"],

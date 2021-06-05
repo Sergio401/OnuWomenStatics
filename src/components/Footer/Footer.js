@@ -19,14 +19,57 @@
 import React from "react";
 
 // reactstrap components
-import { Container } from "reactstrap";
+import { Container, Nav, NavItem, NavLink } from "reactstrap";
+import usaidLogo from "../../assets/img/logos/USAID_logo.png"
+import riohachaLogo from "../../assets/img/logos/Logo Alcaldia Riohacha.png"
+import mujeresEmpoderadasRiohaca from "../../assets/img/logos/Logo Casa Mujeres Empoderadas Riohacha.png"
+import barranquillaLogo from "../../assets/img/logos/Alcaldia Barranquilla + Soy Barranquilla.jpg"
+import onuLogo from "../../assets/img/logos/ONU Women Logo Spanish.png"
 
 function Footer() {
   return (
     <footer className="footer">
       <Container fluid>
+        <Nav>
+          <NavItem>
+            <NavLink href="https://www.usaid.gov/es/colombia">
+              <img width="150rem"
+                alt="USAID"
+                src={usaidLogo} />
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="https://www.riohacha-laguajira.gov.co/Paginas/Inicio.aspx">
+              <img width="200rem"
+                alt="Alcaldía Distrital de Riohacha"
+                src={riohachaLogo} />
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="https://www.riohacha-laguajira.gov.co/Paginas/Inicio.aspx">
+              <img width="150rem"
+                alt="Casa de Mujeres Empoderadas Riohacha"
+                src={mujeresEmpoderadasRiohaca} />
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="https://www.unwomen.org/es">
+              <img width="120rem"
+                alt="ONU Mujeres"
+                src={onuLogo} />
+            </NavLink>
+          </NavItem>
+        </Nav>
         <div className="copyright">
-          for a better web.
+          © {new Date().getFullYear()} made with{" "}
+          <i className="tim-icons icon-heart-2" /> by{" "}
+          <a
+            href="https://www.ecci.edu.co/es/Bogota/inicio"
+            target="_blank"
+          >
+            CEINTECCI
+          </a>{" "}
+          for a better society.
         </div>
       </Container>
     </footer>

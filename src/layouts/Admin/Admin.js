@@ -22,6 +22,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 
 // core components
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import Footer from "components/Footer/Footer.js";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
@@ -91,12 +92,16 @@ function Admin() {
           <div className="wrapper">
             <div className="main-panel" ref={mainPanelRef} data={color}>
               <AdminNavbar
-                brandText="Estadísticas Chatbot"
+                brandText="Estadísticas Chatbot ONU Mujeres - Alcaldía de [...]"
               />
               <Switch>
                 {getRoutes(routes)}
                 <Redirect from="*" to="/admin/dashboard" />
               </Switch>
+              {
+                // we don't want the Footer to be rendered on map page
+                location.pathname === "/admin/maps" ? null : <Footer fluid />
+              }
             </div>
           </div>
           <FixedPlugin bgColor={color} handleBgClick={changeColor} />
