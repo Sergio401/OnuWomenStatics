@@ -114,7 +114,7 @@ const chartExample4 = {
           barPercentage: 1.6,
           gridLines: {
             drawBorder: false,
-            color: "rgba(0,242,195,0.1)",
+            color: "rgba(225,78,202,0.1)", //"rgba(0,242,195,0.1)",
             zeroLineColor: "transparent",
           },
           ticks: {
