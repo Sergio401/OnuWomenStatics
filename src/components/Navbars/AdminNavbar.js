@@ -26,6 +26,8 @@ import {
   Container,
 } from "reactstrap";
 
+import manitasSolidarias from "../../assets/img/logos/Manitas Solidarias.png"
+
 function AdminNavbar(props) {
   const [collapseOpen] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
@@ -56,10 +58,16 @@ function AdminNavbar(props) {
               })}
             >
             </div>
-            <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
-              {props.brandText}
+            <NavbarBrand href="#" onClick={(e) => e.preventDefault()}>
+              <strong>{props.brandText.split('-')[0]}</strong>
+              <br />
+              <h4>{props.brandText.split('-')[1]}</h4>
             </NavbarBrand>
           </div>
+          <img width="130rem"
+            className="nabvar-avatar"
+            alt="ONU Mujeres"
+            src={manitasSolidarias} />
         </Container>
       </Navbar>
     </>
