@@ -39,19 +39,19 @@ function Footer() {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="https://www.riohacha-laguajira.gov.co/Paginas/Inicio.aspx">
-              <img width="200rem"
+            <NavLink href="https://www.barranquilla.gov.co">
+              <img width="300rem"
                 alt="Alcaldía Distrital de Riohacha"
-                src={riohachaLogo} />
+                src={barranquillaLogo} />
             </NavLink>
           </NavItem>
-          <NavItem>
+          {/* <NavItem>
             <NavLink href="https://www.riohacha-laguajira.gov.co/Paginas/Inicio.aspx">
               <img width="150rem"
                 alt="Casa de Mujeres Empoderadas Riohacha"
                 src={mujeresEmpoderadasRiohaca} />
             </NavLink>
-          </NavItem>
+          </NavItem> */}
           <NavItem>
             <NavLink href="https://www.unwomen.org/es">
               <img width="120rem"
@@ -60,6 +60,7 @@ function Footer() {
             </NavLink>
           </NavItem>
         </Nav>
+        <br/>
         <div className="copyright">
           © {new Date().getFullYear()} made with{" "}
           <i className="tim-icons icon-heart-2" /> by{" "}

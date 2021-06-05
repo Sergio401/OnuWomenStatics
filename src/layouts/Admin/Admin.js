@@ -92,7 +92,7 @@ function Admin() {
           <div className="wrapper">
             <div className="main-panel" ref={mainPanelRef} data={color}>
               <AdminNavbar
-                brandText="Estadísticas Chatbot ONU Mujeres - Alcaldía de [...]"
+                brandText="Estadísticas Chatbot Oficina de la Mujer - Alcaldía de Barranquilla"
               />
               <Switch>
                 {getRoutes(routes)}
@@ -104,7 +104,7 @@ function Admin() {
               }
             </div>
           </div>
-          <FixedPlugin bgColor={color} handleBgClick={changeColor} />
+          {/* <FixedPlugin bgColor={color} handleBgClick={changeColor} /> */}
         </React.Fragment>
       )}
     </BackgroundColorContext.Consumer>

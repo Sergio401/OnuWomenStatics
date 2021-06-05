@@ -4,7 +4,7 @@
   color: $black;
 
   .navbar.navbar-transparent{
-    background:$white;
+    background:$dark-green;
   }
 
   .navbar.navbar-transparent .navbar-brand{
@@ -170,7 +170,7 @@
   }
 
   .card:not(.card-white){
-    background: $light-mint;
+    background: $white;
     box-shadow: 0 1px 15px 0 rgba(148, 121, 121, 0.05);
     .card-header{
       color: $black;

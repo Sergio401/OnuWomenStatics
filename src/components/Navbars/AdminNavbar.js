@@ -65,7 +65,7 @@ function AdminNavbar(props) {
             </NavbarBrand>
           </div>
           <img width="130rem"
-            className="nabvar-avatar"
+            className="nabvar-avatar invisible"
             alt="ONU Mujeres"
             src={manitasSolidarias} />
         </Container>
