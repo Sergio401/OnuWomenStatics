@@ -1,9 +1,9 @@
-.black-content{
+.green-content{
 
   /*background: $light-bg;*/
   /*background: $default-states; */
-  background: $table-dark-bg;
-  color: #d5d5d5;
+  background: $light-mint;
+  color: #000;
 
   // @media print {
   //   text-align: center;
@@ -17,11 +17,11 @@
   // }
 
   .navbar.navbar-transparent{
-    background:$table-dark-bg;
+    background:$light-mint;
   }
   
   .navbar.navbar-transparent .navbar-brand{
-    color: $success-states;
+    color: $purple-dark;
   }
 
   .navbar.navbar-transparent .navbar-toggler-bar{
@@ -56,11 +56,11 @@
   }
 
   .main-panel{
-    background: $table-dark-bg;
+    background: $light-mint;
   }
 
   h1, h2, h3, h4, h5, h6, p, ol li, ul li, pre {
-    color: $success-states;
+    color: $black-states;
   }
 
   .font-icon-detail i{
@@ -90,10 +90,11 @@
     }
 
     .form-control{
-      color: $white;
-      border-color: rgba($success-states,0.5);
+      color: $black;
+      //border-color: rgba($success-states,0.5);
+      border-color: $purple-dark;
       &:focus{
-        border-color: $success;
+        border-color: $default;
       }
     }
 
@@ -179,7 +180,7 @@
   }
 
   .card:not(.card-white){
-    background: $black;
+    background: $white;
     box-shadow: 0 1px 15px 0 rgba(123, 123, 123, 0.05);
     .card-header{
       color: $black;
@@ -191,7 +192,7 @@
       color: $success;
     }
     .card-header .card-title, .card-body .card-title{
-      color: $success;
+      color: $purple-dark;
     }
 
     .card-body{

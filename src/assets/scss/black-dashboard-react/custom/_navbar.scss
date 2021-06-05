@@ -18,7 +18,13 @@
 
   .navbar-wrapper {
     display: flex;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
     align-items: center;
+  }
+
+  .nabvar-avatar {
+    position: relative;
   }
 
   .navbar-text {
@@ -36,7 +42,10 @@
 
 
   &.navbar-transparent{
-    background: transparent !important;
+    background: transparent; // !important;
+    position: fixed !important;
+    padding-top: 1rem !important;
+    padding-bottom: 0 !important;
   }
 
   &.bg-white{
@@ -164,6 +173,20 @@
           padding-left: 15px;
       }
 
+      .navbar-wrapper {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      &.navbar-transparent{
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+      }
+
+      .nabvar-avatar {
+        display: none;
+      }
+      
       .navbar-collapse{
         .input-group{
           margin: 0;

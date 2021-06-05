@@ -6,7 +6,7 @@
     z-index: 1031;
     border-radius: 8px 0 0 8px;
     text-align: center;
-    top: 130px;
+    top: 200px;
 
     li > a,
     .badge{
@@ -26,7 +26,8 @@
         right: 80px;
         left: auto !important;
         top: -52px !important;
-        width: 290px;
+        width: 21rem;
+        height: 9rem;
         border-radius: 0.1875rem;
         padding: 0 10px;
         background: linear-gradient($black, $black-states);
@@ -86,7 +87,7 @@
         border-color: $black-states;
     }
 
-    .light-badge, .dark-badge, .black-badge{
+    .light-badge, .dark-badge, .black-badge, .green-badge{
       margin:0;
       border: 1px solid $info;
       &:hover{
@@ -112,6 +113,13 @@
       background: $table-dark-bg;
       &:hover{
         background: $table-dark-bg;
+      }
+    }
+
+    .green-badge{
+      background: $light-green;
+      &:hover{
+        background: $light-green;
       }
     }
 

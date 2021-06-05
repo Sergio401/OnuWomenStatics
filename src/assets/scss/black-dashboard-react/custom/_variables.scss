@@ -22,10 +22,20 @@ $gray-600: #6c757d !default;   // Line footer color
 $gray-700: #525f7f !default;   // Line p color
 $gray-800: #32325d !default;   // Line heading color
 $gray-900: #212529 !default;
-$link-disabled:              #666666 !default;
-$transparent-bg:             transparent !default;
-$light-bg:                   #f5f6fa !default;
-$dark-background:            #555555 !default;
+$link-disabled: #666666 !default;
+$transparent-bg: transparent !default;
+$light-bg: #f5f6fa !default;
+$dark-background: #555555 !default;
+//green palette
+$light-mint: #DDFFE7 !default;
+$light-spearmint: #98D7C2 !default;
+$light-teal: #29A0B1 !default;
+$light-green: #239572 !default;
+//purple palette
+$light-gray: #d8d3d6 !default;
+$purple-dark: #60415d !default;
+$dark-blue: #212245 !default;
+
 
 
 $grays: () !default;
@@ -113,7 +123,7 @@ $success-states:       #0098f0 !default;
 $info-states:          #3358f4 !default;
 $warning-states:       #ff6491 !default;
 $danger-states:        #ec250d !default;
-$black-states:         #1d253b !default;
+$black-states:         #212245 !default;
 
 $background-black:           #1e1e2f !default;
 $background-states-black:    #1e1e24 !default;

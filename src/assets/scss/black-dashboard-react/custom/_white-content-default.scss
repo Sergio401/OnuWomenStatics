@@ -1,45 +1,32 @@
-.black-content{
+.white-content-default{
 
-  /*background: $light-bg;*/
-  /*background: $default-states; */
-  background: $table-dark-bg;
-  color: #d5d5d5;
-
-  // @media print {
-  //   text-align: center;
-  //   .card-chart {
-  //     max-width: 60%;
-  //   }
-  //   .card-chart, .card-chart .card-body, .footer {
-  //     margin-left: auto;
-  //     margin-right: auto;
-  //   }
-  // }
+  background: $light-bg;
+  color: $black-states;
 
   .navbar.navbar-transparent{
-    background:$table-dark-bg;
+    background:$white;
   }
-  
+
   .navbar.navbar-transparent .navbar-brand{
-    color: $success-states;
+    color: $black-states;
   }
 
   .navbar.navbar-transparent .navbar-toggler-bar{
-    background: $success-states;
+    background: $black-states;
   }
   .navbar.navbar-transparent .navbar-nav li a:not(.dropdown-item){
-      color: $success-states;
+      color: $black-states;
       & i{
-        color: $success-states;
+        color: $black-states;
       }
   }
 
   .navbar.navbar-transparent .navbar-minimize button i{
-    color: $success-states;
+    color: $black-states;
   }
 
   .navbar.navbar-transparent .search-bar.input-group i{
-    color: $success-states;
+    color: $black-states;
   }
   .navbar.navbar-transparent .search-bar.input-group .form-control{
     color: $default;
@@ -56,11 +43,11 @@
   }
 
   .main-panel{
-    background: $table-dark-bg;
+    background: $white;
   }
 
   h1, h2, h3, h4, h5, h6, p, ol li, ul li, pre {
-    color: $success-states;
+    color: $black-states;
   }
 
   .font-icon-detail i{
@@ -85,15 +72,15 @@
     }
 
     .input-group-prepend .input-group-text{
-      border-color: rgba($success-states,0.5);
-      color: $success-states;
+      border-color: rgba($black-states,0.5);
+      color: $black-states;
     }
 
     .form-control{
-      color: $white;
-      border-color: rgba($success-states,0.5);
+      color: $black;
+      border-color: rgba($black-states,0.5);
       &:focus{
-        border-color: $success;
+        border-color: $primary;
       }
     }
 
@@ -134,7 +121,7 @@
 
   .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
     background: $light-gray;
-    border-color: rgba($success-states,0.3);
+    border-color: rgba($black-states,0.3);
   }
 
   .input-group-focus{
@@ -179,7 +166,7 @@
   }
 
   .card:not(.card-white){
-    background: $black;
+    background: $white;
     box-shadow: 0 1px 15px 0 rgba(123, 123, 123, 0.05);
     .card-header{
       color: $black;
@@ -187,16 +174,13 @@
         color: $black;
       }
     }
-    .card-header .card-category, .card-body .card-category{
-      color: $success;
-    }
     .card-header .card-title, .card-body .card-title{
-      color: $success;
+      color: $black-states;
     }
 
     .card-body{
       .card-category, .card-description{
-        color: $success-states;
+        color: $black-states;
       }
     }
 
@@ -268,11 +252,11 @@
   }
 
   .footer ul li a{
-    color: $success-states;
+    color: $black-states;
   }
 
   .footer .copyright{
-    color: $success-states;
+    color: $black-states;
   }
 
   .progress-container, .progress-container.progress.sm{
@@ -285,7 +269,7 @@
       }
 
       .progress-badge{
-        color: $success-states;
+        color: $black-states;
       }
   }
 
@@ -293,7 +277,7 @@
      background: $light-bg;
 
      h1, h2, h3, h4, h5, h6, p, ol li, ul li, pre {
-       color: $success-states;
+       color: $black-states;
      }
 
      .description{
@@ -301,17 +285,17 @@
      }
 
      .footer ul li a{
-       color: $success-states;
+       color: $black-states;
      }
 
      .footer .copyright{
-       color: $success-states;
+       color: $black-states;
      }
    }
 
    .nav-pills .nav-item .nav-link:not(.active){
      background: darken($light-bg,10%);
-     color: $success-states;
+     color: $black-states;
      &:hover{
        background: darken($white,20%);
 

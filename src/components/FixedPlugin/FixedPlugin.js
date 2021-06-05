@@ -41,20 +41,35 @@ function FixedPlugin(props) {
                   <span className="color-label">LIGHT MODE</span>{" "}
                   <Badge
                     className="light-badge mr-2"
-                    onClick={() => changeTheme(themes.light)}
+                    onClick={() => changeTheme(themes.light_default)}
                   />{" "}
-                  <Badge
-                    className="black-badge ml-2"
-                    onClick={() => changeTheme(themes.dark)}
-                  />{" "}
-                  <span className="color-label">DARK MODE</span>{" "}
-                  <br/>
-                  <span className="color-label">DEFAULT MODE</span>{" "}
-                  <Badge
+                  {/* <Badge
                     className="dark-badge ml-2"
                     onClick={() => changeTheme(themes.default)}
                   />{" "}
-                  
+                  <span className="color-label">DEFAULT DARK MODE</span>{" "} */}
+                  <br/>
+                  <span className="color-label">LIGHT MODE 2</span>{" "}
+                  <Badge
+                    className="light-badge ml-2"
+                    onClick={() => changeTheme(themes.light)}
+                  />{" "}
+                  {/* <Badge
+                    className="black-badge ml-2"
+                    onClick={() => changeTheme(themes.dark)}
+                  />{" "}
+                  <span className="color-label">DARK MODE</span>{" "} */}
+                  <br/>
+                  <span className="color-label">GREEN MODE</span>{" "}
+                  <Badge
+                    className="green-badge ml-2"
+                    onClick={() => changeTheme(themes.green)}
+                  />{" "}
+                  {/* <Badge
+                    className="black-badge ml-2"
+                    onClick={() => changeTheme(themes.dark)}
+                  />{" "}
+                  <span className="color-label">DARK MODE</span>{" "} */}
                 </>
               )}
             </ThemeContext.Consumer>

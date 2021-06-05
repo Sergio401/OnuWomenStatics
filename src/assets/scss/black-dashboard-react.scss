@@ -90,11 +90,16 @@
 
 // light mode
 
+@import "black-dashboard-react/custom/white-content-default.scss";
 @import "black-dashboard-react/custom/white-content.scss";
 
 // dark mode
 
 @import "black-dashboard-react/custom/black-content.scss";
+
+// green mode
+
+@import "black-dashboard-react/custom/green-content.scss";
 
 // Cards
 

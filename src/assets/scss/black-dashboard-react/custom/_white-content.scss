@@ -1,6 +1,11 @@
 .white-content{
 
-  background: $light-bg;
+  background: $light-mint;
+  color: $black;
+
+  .navbar.navbar-transparent{
+    background:$white;
+  }
 
   .navbar.navbar-transparent .navbar-brand{
     color: $black-states;
@@ -38,7 +43,11 @@
   }
 
   .main-panel{
-    background: $light-bg;
+    background: $white;
+  }
+
+  .text-success{
+    color: $default !important;
   }
 
   h1, h2, h3, h4, h5, h6, p, ol li, ul li, pre {
@@ -75,7 +84,7 @@
       color: $black;
       border-color: rgba($black-states,0.5);
       &:focus{
-        border-color: $primary;
+        border-color: $info;
       }
     }
 
@@ -161,8 +170,8 @@
   }
 
   .card:not(.card-white){
-    background: $white;
-    box-shadow: 0 1px 15px 0 rgba(123, 123, 123, 0.05);
+    background: $light-mint;
+    box-shadow: 0 1px 15px 0 rgba(148, 121, 121, 0.05);
     .card-header{
       color: $black;
       a[data-toggle="collapse"]{

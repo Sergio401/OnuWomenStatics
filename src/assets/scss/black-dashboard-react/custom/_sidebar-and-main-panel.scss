@@ -438,15 +438,16 @@
 
 .main-panel {
   position: relative;
+  flex: auto;
   float: right;
   width: $full-width;
   min-height: 100vh;
-  border-top: 2px solid $primary;
+  //border-top: 2px solid $primary;
   background: linear-gradient($background-black, $background-states-black);
 
   @include transitions (0.50s, cubic-bezier(0.685, 0.0473, 0.346, 1));
 
-  &[data="blue"]{
+  /* &[data="blue"]{
     border-top: 2px solid $info;
   }
 
@@ -456,16 +457,16 @@
 
   &[data="primary"]{
     border-top: 2px solid $primary;
-  }
+  } */
 
   > .content {
-    padding: 78px 30px 30px;
+    padding: 108px 30px 0px;
     min-height: calc(100vh - 70px);
   }
 
   > .navbar {
     margin-bottom: 0;
-    margin-top: 30px;
+    //margin-top: 30px;
     padding: 12px;
   }
 
