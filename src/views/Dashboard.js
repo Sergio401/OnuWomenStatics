@@ -46,6 +46,8 @@ import {
 
 import { API, requestOptions, APIRequest } from "variables/utils";
 
+import Load from "components/Load/Load";
+
 //function Dashboard() {
 class Dashboard extends React.Component {
 
@@ -61,6 +63,7 @@ class Dashboard extends React.Component {
             firstToogle: true,
             secondToogle: true,
             updateTime: this.getLastUpdateTime(),
+            loading: true,
             age: {},
             gender: {},
             nationality: {},
@@ -83,7 +86,7 @@ class Dashboard extends React.Component {
                 this.requestData();
                 console.log('requested!')
                 //this.forceUpdate();
-            }, 30000)
+            }, 120 * 1000)
         });
     }
 
@@ -92,7 +95,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        return (<>
+        return this.state.loading ? <Load/> : (<>
             <div className="content">
                 <Form>
                     <Row form className="searchConsult">
@@ -310,6 +313,10 @@ class Dashboard extends React.Component {
 
         let raw = String.raw`{"month":${this.state.month},"year":${this.state.year}}`;
 
+        this.setState({
+            loading: true
+        })
+
         ageData = await APIRequest('/getedad/', { ...requestOptions, body: raw });
         genderData = await APIRequest('/getgenero/', { ...requestOptions, body: raw });
         nationalityData = await APIRequest('/getnacionalidad/', { ...requestOptions, body: raw });
@@ -424,7 +431,8 @@ class Dashboard extends React.Component {
                     },
                 ],
             },
-            updateTime: this.getLastUpdateTime()
+            updateTime: this.getLastUpdateTime(),
+            loading: false
 
         })
         console.log('Updated');
