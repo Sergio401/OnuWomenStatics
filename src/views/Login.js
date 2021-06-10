@@ -16,7 +16,7 @@
 
 */
 import React, {useState} from "react";
-import routes from "../routes";
+//import routes from "../routes";
 
 // reactstrap components
 import {
@@ -30,36 +30,49 @@ import {
     Button,
 } from "reactstrap";
 
-import wun from "../un-women-logo.png"
+import onuLogo from "../assets/img/logos/ONU Women Logo Spanish.png"
 
 function Login(props) {
 
-    const [username, setLogin] = useState("")
+    const [username, setUser] = useState("")
+    const [password, setPassword] = useState("")
 
     const handleSubmit = event => {
         event.preventDefault();
-        username === "admin" ? props.history.push('/admin/dashboard') : console.log("ok")
+        (username === "admin" && password === "admin") ? props.history.push('/admin/dashboard') : console.log("ok")
     }
 
     return (
     <>
-        <Row className="min-vh-100 justify-content-center align-items-center">
+        <Row className="min-login-vh justify-content-center align-items-center">
             <Col lg="3" md="3" sm="3">
-                <Media object src={wun} alt="UN Women"/>
+                <Media object src={onuLogo} alt="ONU Mujeres"/>
             </Col>
             <Col lg="4" md="4" sm="4">
             <div className="content">
                 <Form onSubmit={handleSubmit}>
                     <FormGroup>
-                        <Label for="exampleEmail" className="label_login">Usuario</Label>
+                        {/* <Label for="user" className="label_login">Usuario</Label> */}
                         <Input
                             type="text"
                             name="user"
-                            id="exampleUser"
+                            id="user"
                             placeholder="Ingrese su usuario"
-                            onChange={(e) => setLogin(e.target.value)} />
+                            onChange={(e) => setUser(e.target.value)} />
                     </FormGroup>
-                    <Button>Iniciar Sesión</Button>
+                    <FormGroup>
+                        {/* <Label for="pass" className="label_login">Contraseña</Label> */}
+                        <Input
+                            type="password"
+                            name="pass"
+                            id="pass"
+                            placeholder="Ingrese su contraseña"
+                            onChange={(e) => setPassword(e.target.value)} />
+                    </FormGroup>
+                    {/* <Button>Iniciar Sesión</Button> */}
+                    <FormGroup>
+                        <Input type="submit" className="button_form" value="Iniciar Sesión"></Input>
+                    </FormGroup>
                 </Form>
             </div>
             </Col>

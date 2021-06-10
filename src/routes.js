@@ -16,17 +16,16 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-//import Login from "views/Login.js";
+import Login from "views/Login.js";
 
 const routes = [
-/*  {
+  {
     path: "/login",
     name: "Login",
     icon: "tim-icons icon-chart-pie-36",
     component: Login,
     layout: "/admin",
   },
- */
   {
     path: "/dashboard",
     name: "Dashboard",
