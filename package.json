@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://demos.creative-tim.com/black-dashboard-react/#/admin/dashboard",
   "dependencies": {
+    "@agney/react-loading": "^0.1.2",
     "@fortawesome/fontawesome-free": "5.15.1",
     "axios": "^0.21.1",
     "bootstrap": "4.5.3",
