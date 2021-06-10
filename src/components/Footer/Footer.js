@@ -60,6 +60,7 @@ function Footer() {
             </NavLink>
           </NavItem>
         </Nav>
+        <br/>
         <div className="copyright">
           © {new Date().getFullYear()} made with{" "}
           <i className="tim-icons icon-heart-2" /> by{" "}

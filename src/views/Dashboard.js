@@ -49,6 +49,8 @@ import { API, requestOptions, APIRequest } from "variables/utils";
 //function Dashboard() {
 class Dashboard extends React.Component {
 
+    formatter = new Intl.DateTimeFormat('es', { month: 'long' });
+
     constructor(props) {
         super(props);
 
@@ -58,6 +60,7 @@ class Dashboard extends React.Component {
             timer: undefined,
             firstToogle: true,
             secondToogle: true,
+            updateTime: this.getLastUpdateTime(),
             age: {},
             gender: {},
             nationality: {},
@@ -123,7 +126,7 @@ class Dashboard extends React.Component {
                             </Input>
                         </FormGroup>
                         <FormGroup className="form_month">
-                            <Button className="button_form" onClick={this.updateRequestDate}>Consultar</Button>
+                            <Input type="button" className="button_form" onClick={this.updateRequestDate} value="Consultar"></Input>
                         </FormGroup>
                     </Row>
                 </Form>
@@ -271,6 +274,10 @@ class Dashboard extends React.Component {
                         </Collapse>
                     </CardBody>
                 </Card>
+                <small className="float-right">Periodo Consultado: {this.formatter.format(new Date(this.state.year, this.state.month-1))} de {this.state.year}</small>
+                <br/>
+                <small className="float-right">Última Actualización: {this.state.updateTime}</small>
+                <br/>
             </div>
         </>)
     }
@@ -282,6 +289,15 @@ class Dashboard extends React.Component {
                 year: document.getElementById("year").value
             }, this.requestData)
         }
+    }
+
+    getLastUpdateTime = () => {
+        let date = new Date();
+        let out = '';
+        out += date.getHours() < 10 ? '0' + date.getHours() + ':' : date.getHours() + ':';
+        out += date.getMinutes() < 10 ? '0' + date.getMinutes() + ':' : date.getMinutes() + ':';
+        out += date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+        return out;
     }
 
     requestData = async () => {
@@ -407,7 +423,8 @@ class Dashboard extends React.Component {
                         data: Object.values(satisfactionData),
                     },
                 ],
-            }
+            },
+            updateTime: this.getLastUpdateTime()
         })
         console.log('Updated');
     }

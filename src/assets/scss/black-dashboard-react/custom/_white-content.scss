@@ -84,7 +84,7 @@
       color: $black;
       border-color: rgba($black-states,0.5);
       &:focus{
-        border-color: $info;
+        border-color: $black-states;
       }
     }
 
