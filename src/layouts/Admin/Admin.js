@@ -92,7 +92,7 @@ function Admin() {
           <div className="wrapper">
             <div className="main-panel" ref={mainPanelRef} data={color}>
               <AdminNavbar
-                brandText="Estadísticas Chatbot ONU Mujeres - Alcaldía de [...]"
+                brandText="Estadísticas Chatbot Casa de Mujeres Empoderadas - Alcaldía de Riohacha"
               />
               <Switch>
                 {getRoutes(routes)}
