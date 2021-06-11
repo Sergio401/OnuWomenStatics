@@ -8,6 +8,7 @@ export default function Load() {
     loaderProps: {
         style: { 
             margin: 'auto',
+            color: 'green'
         }
     },
     indicator: <BallTriangle width="120" />

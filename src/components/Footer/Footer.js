@@ -24,6 +24,8 @@ import usaidLogo from "../../assets/img/logos/USAID_logo.png"
 import riohachaLogo from "../../assets/img/logos/Logo Alcaldia Riohacha.png"
 import mujeresEmpoderadasRiohaca from "../../assets/img/logos/Logo Casa Mujeres Empoderadas Riohacha.png"
 import barranquillaLogo from "../../assets/img/logos/Alcaldia Barranquilla + Soy Barranquilla.jpg"
+//import barranquillaLogo from "../../assets/img/logos/Oficina de la mujer Barranquilla.png"
+import ECCILogo from "../../assets/img/logos/Logo Universidad ECCI.png"
 import onuLogo from "../../assets/img/logos/ONU Women Logo Spanish.png"
 
 function Footer() {
@@ -33,28 +35,28 @@ function Footer() {
         <Nav>
           <NavItem>
             <NavLink href="https://www.usaid.gov/es/colombia">
-              <img width="150rem"
+              <img width="170rem"
                 alt="USAID"
                 src={usaidLogo} />
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="https://www.barranquilla.gov.co">
-              <img width="300rem"
+              <img width="330rem"
                 alt="Alcaldía Distrital de Riohacha"
                 src={barranquillaLogo} />
             </NavLink>
           </NavItem>
-          {/* <NavItem>
-            <NavLink href="https://www.riohacha-laguajira.gov.co/Paginas/Inicio.aspx">
-              <img width="150rem"
-                alt="Casa de Mujeres Empoderadas Riohacha"
-                src={mujeresEmpoderadasRiohaca} />
+          <NavItem>
+            <NavLink href="https://www.ecci.edu.co/es/Bogota/inicio">
+              <img width="135rem"
+                alt="Universidad ECCI"
+                src={ECCILogo} />
             </NavLink>
-          </NavItem> */}
+          </NavItem>
           <NavItem>
             <NavLink href="https://www.unwomen.org/es">
-              <img width="120rem"
+              <img width="150rem"
                 alt="ONU Mujeres"
                 src={onuLogo} />
             </NavLink>
