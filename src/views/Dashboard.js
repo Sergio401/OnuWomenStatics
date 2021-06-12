@@ -131,6 +131,9 @@ class Dashboard extends React.Component {
                         <FormGroup className="form_month">
                             <Input type="button" className="button_form" onClick={this.updateRequestDate} value="Consultar"></Input>
                         </FormGroup>
+                        <FormGroup className="form_month float-right">
+                            <Input type="button" className="button_form" onClick={''} value="Mensajes No Comprendidos"></Input>
+                        </FormGroup>
                     </Row>
                 </Form>
 
@@ -314,7 +317,7 @@ class Dashboard extends React.Component {
         let raw = String.raw`{"month":${this.state.month},"year":${this.state.year}}`;
 
         this.setState({
-            loading: true
+            loading: false
         })
 
         ageData = await APIRequest('/getedad/', { ...requestOptions, body: raw });

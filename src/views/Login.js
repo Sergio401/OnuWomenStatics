@@ -31,6 +31,7 @@ import {
 } from "reactstrap";
 
 import onuLogo from "../assets/img/logos/ONU Women Logo Spanish.png"
+import bannerRiohacha from "../assets/img/logos/Avatar Riohacha Vertical.png"
 
 function Login(props) {
 
@@ -52,7 +53,7 @@ function Login(props) {
                     <div className="content">
                         <Form onSubmit={handleSubmit}>
                             <FormGroup>
-                                <Media object src={onuLogo} alt="ONU Mujeres" />
+                                <Media object src={bannerRiohacha} alt="ONU Mujeres" />
                             </FormGroup>
                             <FormGroup>
                                 {/* <Label for="user" className="label_login">Usuario</Label> */}

@@ -27,6 +27,7 @@ import {
 } from "reactstrap";
 
 import manitasSolidarias from "../../assets/img/logos/Manitas Solidarias.png"
+import logoRiohachaVertical from "../../assets/img/logos/Avatar Riohacha Logo Vertical.png"
 
 function AdminNavbar(props) {
   const [collapseOpen] = React.useState(false);
@@ -64,10 +65,10 @@ function AdminNavbar(props) {
               <h4>{props.brandText.split('-')[1]}</h4>
             </NavbarBrand>
           </div>
-          <img width="130rem"
+          <img width="160rem"
             className="nabvar-avatar"
             alt="ONU Mujeres"
-            src={manitasSolidarias} />
+            src={logoRiohachaVertical} />
         </Container>
       </Navbar>
     </>
