@@ -30,6 +30,8 @@ import {
     Button,
 } from "reactstrap";
 
+import { requestOptions, APIRequest } from "variables/utils";
+
 import onuLogo from "../assets/img/logos/ONU Women Logo Spanish.png"
 
 function Login(props) {
@@ -37,9 +39,15 @@ function Login(props) {
     const [username, setUser] = useState("")
     const [password, setPassword] = useState("")
 
-    const handleSubmit = event => {
+    const handleSubmit = async event => {
         event.preventDefault();
-        (username === "admin" && password === "admin") ? props.history.push('/admin/dashboard') : console.log("ok")
+
+        let raw = String.raw`{"user":"${username}","password":"${password}"}`;
+
+        let login_response = await APIRequest('/login/', { ...requestOptions, body: raw });
+        //(username === "admin" && password === "admin") ? props.history.push('/admin/dashboard') : console.log("ok")
+
+        login_response.success ? props.history.push('/admin/dashboard') : alert(login_response.message)//console.log(login_response)
     }
 
     return (
