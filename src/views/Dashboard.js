@@ -70,6 +70,8 @@ class Dashboard extends React.Component {
             services: {},
             messages: {},
             satisfaction: {},
+            zone: {},
+            group: {}
         }
         console.log(`STATE ORIGIN\n\n\n${JSON.stringify(this.state)}\n\n\n`)
     }
@@ -95,7 +97,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        return this.state.loading ? <Load/> : (<>
+        return this.state.loading ? <Load /> : (<>
             <div className="content">
                 <Form>
                     <Row form className="searchConsult">
@@ -205,6 +207,46 @@ class Dashboard extends React.Component {
                                     </Card>
                                 </Col>
                             </Row>
+                            <Row>
+                                <Col lg="6">
+                                    <Card className="card-chart">
+                                        <CardHeader>
+                                            <h5 className="card-category">Zona</h5>
+                                            <CardTitle tag="h3">
+                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
+                  Zona
+                </CardTitle>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <div className="chart-area">
+                                                <Bar
+                                                    data={this.state.zone}
+                                                    options={chartExample3.options}
+                                                />
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                                <Col lg="6">
+                                    <Card className="card-chart">
+                                        <CardHeader>
+                                            <h5 className="card-category">Grupo</h5>
+                                            <CardTitle tag="h3">
+                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
+                  Grupo
+                </CardTitle>
+                                        </CardHeader>
+                                        <CardBody>
+                                            <div className="chart-area">
+                                                <Bar
+                                                    data={this.state.group}
+                                                    options={chartExample3.options}
+                                                />
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                            </Row>
                         </Collapse>
                     </CardBody>
                 </Card>
@@ -280,10 +322,10 @@ class Dashboard extends React.Component {
                         </Collapse>
                     </CardBody>
                 </Card>
-                <small className="float-right">Periodo Consultado: {this.formatter.format(new Date(this.state.year, this.state.month-1))} de {this.state.year}</small>
-                <br/>
+                <small className="float-right">Periodo Consultado: {this.formatter.format(new Date(this.state.year, this.state.month - 1))} de {this.state.year}</small>
+                <br />
                 <small className="float-right">Última Actualización: {this.state.updateTime}</small>
-                <br/>
+                <br />
             </div>
         </>)
     }
@@ -313,6 +355,8 @@ class Dashboard extends React.Component {
         let servicesData = {};
         let messagesData = {};
         let satisfactionData = {};
+        let zoneData = {};
+        let groupData = {};
 
         let raw = String.raw`{"month":${this.state.month},"year":${this.state.year}}`;
 
@@ -326,6 +370,8 @@ class Dashboard extends React.Component {
         servicesData = await APIRequest('/getcatsmenu/', { ...requestOptions, body: raw });
         messagesData = await APIRequest('/getgeneral/', { ...requestOptions, body: raw });
         satisfactionData = await APIRequest('/getsolution/', { ...requestOptions, body: raw });
+        zoneData = await APIRequest('/getzona/', { ...requestOptions, body: raw });
+        groupData = await APIRequest('/getgrupo/', { ...requestOptions, body: raw });
 
         this.setState({
             age: {
@@ -431,6 +477,38 @@ class Dashboard extends React.Component {
                         borderDash: [],
                         borderDashOffset: 0.0,
                         data: Object.values(satisfactionData),
+                    },
+                ],
+            },
+            zone: {
+                labels: Object.keys(zoneData), // ["Si", "No"],
+                datasets: [
+                    {
+                        label: "Respuesta",
+                        fill: true,
+                        backgroundColor: "rgba(119,52,169,0)",
+                        hoverBackgroundColor: "rgba(119,52,169,0)",
+                        borderColor: "#0089D0",
+                        borderWidth: 2,
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        data: Object.values(zoneData),
+                    },
+                ],
+            },
+            group: {
+                labels: Object.keys(groupData), // ["Si", "No"],
+                datasets: [
+                    {
+                        label: "Respuesta",
+                        fill: true,
+                        backgroundColor: "rgba(119,52,169,0)",
+                        hoverBackgroundColor: "rgba(119,52,169,0)",
+                        borderColor: "#0089D0",
+                        borderWidth: 2,
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        data: Object.values(groupData),
                     },
                 ],
             },
