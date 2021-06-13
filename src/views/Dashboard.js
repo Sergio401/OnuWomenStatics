@@ -143,13 +143,13 @@ class Dashboard extends React.Component {
                     <CardHeader onClick={(e) => this.setState({ firstToogle: !this.state.firstToogle })}>
                         <CardTitle tag="h3">
                             <i className="tim-icons icon-badge" />{" "}
-                                        Información de Usuarias
-                                    </CardTitle>
+                                        Información de Usuarias - {this.formatter.format(new Date(this.state.year, this.state.month - 1))} de {this.state.year}
+                        </CardTitle>
                     </CardHeader>
                     <CardBody>
                         <Collapse isOpen={this.state.firstToogle}>
                             <Row>
-                                <Col lg="4">
+                                <Col lg="6">
                                     <Card className="card-chart">
                                         <CardHeader>
                                             <h5 className="card-category">Edad</h5>
@@ -168,7 +168,7 @@ class Dashboard extends React.Component {
                                         </CardBody>
                                     </Card>
                                 </Col>
-                                <Col lg="4">
+                                <Col lg="6">
                                     <Card className="card-chart">
                                         <CardHeader>
                                             <h5 className="card-category">Género</h5>
@@ -187,6 +187,8 @@ class Dashboard extends React.Component {
                                         </CardBody>
                                     </Card>
                                 </Col>
+                            </Row>
+                            <Row>
                                 <Col lg="4">
                                     <Card className="card-chart">
                                         <CardHeader>
@@ -206,9 +208,7 @@ class Dashboard extends React.Component {
                                         </CardBody>
                                     </Card>
                                 </Col>
-                            </Row>
-                            <Row>
-                                <Col lg="6">
+                                <Col lg="4">
                                     <Card className="card-chart">
                                         <CardHeader>
                                             <h5 className="card-category">Zona</h5>
@@ -227,7 +227,7 @@ class Dashboard extends React.Component {
                                         </CardBody>
                                     </Card>
                                 </Col>
-                                <Col lg="6">
+                                <Col lg="4">
                                     <Card className="card-chart">
                                         <CardHeader>
                                             <h5 className="card-category">Grupo</h5>
@@ -255,8 +255,8 @@ class Dashboard extends React.Component {
                     <CardHeader onClick={(e) => this.setState({ secondToogle: !this.state.secondToogle })}>
                         <CardTitle tag="h3">
                             <i className="tim-icons icon-chart-bar-32" />{" "}
-                                        Métricas ChatBot
-                                    </CardTitle>
+                                        Métricas ChatBot - {this.formatter.format(new Date(this.state.year, this.state.month - 1))} de {this.state.year}
+                        </CardTitle>
                     </CardHeader>
                     <CardBody>
                         <Collapse isOpen={this.state.secondToogle}>
@@ -322,8 +322,8 @@ class Dashboard extends React.Component {
                         </Collapse>
                     </CardBody>
                 </Card>
-                <small className="float-right">Periodo Consultado: {this.formatter.format(new Date(this.state.year, this.state.month - 1))} de {this.state.year}</small>
-                <br />
+                {/* <small className="float-right">Periodo Consultado: {this.formatter.format(new Date(this.state.year, this.state.month - 1))} de {this.state.year}</small>
+                <br /> */}
                 <small className="float-right">Última Actualización: {this.state.updateTime}</small>
                 <br />
             </div>
