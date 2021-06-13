@@ -138,7 +138,7 @@ class Dashboard extends React.Component {
                     <CardHeader onClick={(e) => this.setState({ firstToogle: !this.state.firstToogle })}>
                         <CardTitle tag="h3">
                             <i className="tim-icons icon-badge" />{" "}
-                                        Información de Usuarias
+                                        Información de Usuarias - {this.formatter.format(new Date(this.state.year, this.state.month-1))} de {this.state.year}
                                     </CardTitle>
                     </CardHeader>
                     <CardBody>
@@ -210,7 +210,7 @@ class Dashboard extends React.Component {
                     <CardHeader onClick={(e) => this.setState({ secondToogle: !this.state.secondToogle })}>
                         <CardTitle tag="h3">
                             <i className="tim-icons icon-chart-bar-32" />{" "}
-                                        Métricas ChatBot
+                                        Métricas ChatBot - {this.formatter.format(new Date(this.state.year, this.state.month-1))} de {this.state.year}
                                     </CardTitle>
                     </CardHeader>
                     <CardBody>
@@ -277,8 +277,8 @@ class Dashboard extends React.Component {
                         </Collapse>
                     </CardBody>
                 </Card>
-                <small className="float-right">Periodo Consultado: {this.formatter.format(new Date(this.state.year, this.state.month-1))} de {this.state.year}</small>
-                <br/>
+                {/* <small className="float-right">Periodo Consultado: {this.formatter.format(new Date(this.state.year, this.state.month-1))} de {this.state.year}</small>
+                <br/> */}
                 <small className="float-right">Última Actualización: {this.state.updateTime}</small>
                 <br/>
             </div>
