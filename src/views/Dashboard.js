@@ -52,7 +52,7 @@ import Load from "components/Load/Load";
 class Dashboard extends React.Component {
 
     formatter = new Intl.DateTimeFormat('es', { month: 'long' });
-    
+
     constructor(props) {
         super(props);
 
@@ -95,13 +95,13 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        return this.state.loading ? <Load/> : (<>
+        return this.state.loading ? <Load /> : (<>
             <div className="content">
                 <Form>
                     <Row form className="searchConsult">
                         <FormGroup className="form_month">
                             <Label for="month">Mes</Label>
-                            <Input type="select" name="select" id="month">
+                            <Input type="select" name="select" id="month" defaultValue={this.state.month}>
                                 <option defaultValue hidden value=''>Seleccione un mes</option>
                                 <option value='1'>Enero</option>
                                 <option value='2'>Febrero</option>
@@ -119,7 +119,7 @@ class Dashboard extends React.Component {
                         </FormGroup>
                         <FormGroup className="form_month">
                             <Label for="year">Año</Label>
-                            <Input type="select" name="select" id="year">
+                            <Input type="select" name="select" id="year" defaultValue={this.state.year}>
                                 <option defaultValue hidden value=''>Seleccione un año</option>
                                 <option>2021</option>
                                 <option>2022</option>
@@ -134,153 +134,165 @@ class Dashboard extends React.Component {
                     </Row>
                 </Form>
 
-                <Card className="card-plain mb-0"> {/* bg-transparent or black content customization */}
-                    <CardHeader onClick={(e) => this.setState({ firstToogle: !this.state.firstToogle })}>
-                        <CardTitle tag="h3">
-                            <i className="tim-icons icon-badge" />{" "}
-                                        Información de Usuarias - {this.formatter.format(new Date(this.state.year, this.state.month-1))} de {this.state.year}
+                {
+                    (this.state.age.datasets[0].data.length == 0 &&
+                        this.state.gender.datasets[0].data.length == 0 &&
+                        this.state.nationality.datasets[0].data.length == 0 &&
+                        this.state.services.datasets[0].data.length == 0 &&
+                        this.state.messages.datasets[0].data.length == 0) ? // &&
+                        //this.state.satisfaction.datasets[0].data.length == 0) ?
+                        <>
+                            <h1 className="text-center mt-md"><strong>No hay datos disponibles para el periodo consultado</strong></h1>
+                        </> :
+                        <>
+                            <Card className="card-plain mb-0"> {/* bg-transparent or black content customization */}
+                                <CardHeader onClick={(e) => this.setState({ firstToogle: !this.state.firstToogle })}>
+                                    <CardTitle tag="h3">
+                                        <i className="tim-icons icon-badge" />{" "}
+                                        Información de Usuarias - {this.formatter.format(new Date(this.state.year, this.state.month - 1))} de {this.state.year}
                                     </CardTitle>
-                    </CardHeader>
-                    <CardBody>
-                        <Collapse isOpen={this.state.firstToogle}>
-                            <Row>
-                                <Col lg="4">
-                                    <Card className="card-chart">
-                                        <CardHeader>
-                                            <h5 className="card-category">Edad</h5>
-                                            <CardTitle tag="h3">
-                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
+                                </CardHeader>
+                                <CardBody>
+                                    <Collapse isOpen={this.state.firstToogle}>
+                                        <Row>
+                                            <Col lg="4">
+                                                <Card className="card-chart">
+                                                    <CardHeader>
+                                                        <h5 className="card-category">Edad</h5>
+                                                        <CardTitle tag="h3">
+                                                            <i className="tim-icons icon-single-02 text-primary" />{" "}
                   Edad
                 </CardTitle>
-                                        </CardHeader>
-                                        <CardBody>
-                                            <div className="chart-area">
-                                                <Bar
-                                                    data={this.state.age}
-                                                    options={chartExample3.options}
-                                                />
-                                            </div>
-                                        </CardBody>
-                                    </Card>
-                                </Col>
-                                <Col lg="4">
-                                    <Card className="card-chart">
-                                        <CardHeader>
-                                            <h5 className="card-category">Género</h5>
-                                            <CardTitle tag="h3">
-                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
+                                                    </CardHeader>
+                                                    <CardBody>
+                                                        <div className="chart-area">
+                                                            <Bar
+                                                                data={this.state.age}
+                                                                options={chartExample3.options}
+                                                            />
+                                                        </div>
+                                                    </CardBody>
+                                                </Card>
+                                            </Col>
+                                            <Col lg="4">
+                                                <Card className="card-chart">
+                                                    <CardHeader>
+                                                        <h5 className="card-category">Género</h5>
+                                                        <CardTitle tag="h3">
+                                                            <i className="tim-icons icon-single-02 text-primary" />{" "}
                   Género
                 </CardTitle>
-                                        </CardHeader>
-                                        <CardBody>
-                                            <div className="chart-area">
-                                                <Bar
-                                                    data={this.state.gender}
-                                                    options={chartExample3.options}
-                                                />
-                                            </div>
-                                        </CardBody>
-                                    </Card>
-                                </Col>
-                                <Col lg="4">
-                                    <Card className="card-chart">
-                                        <CardHeader>
-                                            <h5 className="card-category">Nacionalidad</h5>
-                                            <CardTitle tag="h3">
-                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
+                                                    </CardHeader>
+                                                    <CardBody>
+                                                        <div className="chart-area">
+                                                            <Bar
+                                                                data={this.state.gender}
+                                                                options={chartExample3.options}
+                                                            />
+                                                        </div>
+                                                    </CardBody>
+                                                </Card>
+                                            </Col>
+                                            <Col lg="4">
+                                                <Card className="card-chart">
+                                                    <CardHeader>
+                                                        <h5 className="card-category">Nacionalidad</h5>
+                                                        <CardTitle tag="h3">
+                                                            <i className="tim-icons icon-single-02 text-primary" />{" "}
                   Nacionalidad
                 </CardTitle>
-                                        </CardHeader>
-                                        <CardBody>
-                                            <div className="chart-area">
-                                                <Bar
-                                                    data={this.state.nationality}
-                                                    options={chartExample3.options}
-                                                />
-                                            </div>
-                                        </CardBody>
-                                    </Card>
-                                </Col>
-                            </Row>
-                        </Collapse>
-                    </CardBody>
-                </Card>
+                                                    </CardHeader>
+                                                    <CardBody>
+                                                        <div className="chart-area">
+                                                            <Bar
+                                                                data={this.state.nationality}
+                                                                options={chartExample3.options}
+                                                            />
+                                                        </div>
+                                                    </CardBody>
+                                                </Card>
+                                            </Col>
+                                        </Row>
+                                    </Collapse>
+                                </CardBody>
+                            </Card>
 
-                <Card className="card-plain mb-0"> {/* bg-transparent or black content customization */}
-                    <CardHeader onClick={(e) => this.setState({ secondToogle: !this.state.secondToogle })}>
-                        <CardTitle tag="h3">
-                            <i className="tim-icons icon-chart-bar-32" />{" "}
-                                        Métricas ChatBot - {this.formatter.format(new Date(this.state.year, this.state.month-1))} de {this.state.year}
+                            <Card className="card-plain mb-0"> {/* bg-transparent or black content customization */}
+                                <CardHeader onClick={(e) => this.setState({ secondToogle: !this.state.secondToogle })}>
+                                    <CardTitle tag="h3">
+                                        <i className="tim-icons icon-chart-bar-32" />{" "}
+                                        Métricas ChatBot - {this.formatter.format(new Date(this.state.year, this.state.month - 1))} de {this.state.year}
                                     </CardTitle>
-                    </CardHeader>
-                    <CardBody>
-                        <Collapse isOpen={this.state.secondToogle}>
-                            <Row>
-                                <Col lg="4">
-                                    <Card className="card-chart">
-                                        <CardHeader>
-                                            <h5 className="card-category">N° de Mensajes X Día</h5>
-                                            <CardTitle tag="h3">
-                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
+                                </CardHeader>
+                                <CardBody>
+                                    <Collapse isOpen={this.state.secondToogle}>
+                                        <Row>
+                                            <Col lg="4">
+                                                <Card className="card-chart">
+                                                    <CardHeader>
+                                                        <h5 className="card-category">N° de Mensajes X Día</h5>
+                                                        <CardTitle tag="h3">
+                                                            <i className="tim-icons icon-single-02 text-primary" />{" "}
                             N° de Mensajes X Día
                         </CardTitle>
-                                        </CardHeader>
-                                        <CardBody>
-                                            <div className="chart-area">
-                                                <Line
-                                                    data={this.state.messages}
-                                                    options={chartExample4.options}
-                                                />
-                                            </div>
-                                        </CardBody>
-                                    </Card>
-                                </Col>
-                                <Col lg="4">
-                                    <Card className="card-chart">
-                                        <CardHeader>
-                                            <h5 className="card-category">Servicios más solicitados</h5>
-                                            <CardTitle tag="h3">
-                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
+                                                    </CardHeader>
+                                                    <CardBody>
+                                                        <div className="chart-area">
+                                                            <Line
+                                                                data={this.state.messages}
+                                                                options={chartExample4.options}
+                                                            />
+                                                        </div>
+                                                    </CardBody>
+                                                </Card>
+                                            </Col>
+                                            <Col lg="4">
+                                                <Card className="card-chart">
+                                                    <CardHeader>
+                                                        <h5 className="card-category">Servicios más solicitados</h5>
+                                                        <CardTitle tag="h3">
+                                                            <i className="tim-icons icon-single-02 text-primary" />{" "}
                             Servicios Más Solicitados
                         </CardTitle>
-                                        </CardHeader>
-                                        <CardBody>
-                                            <div className="chart-area">
-                                                <Bar
-                                                    data={this.state.services}
-                                                    options={chartExample3.options}
-                                                />
-                                            </div>
-                                        </CardBody>
-                                    </Card>
-                                </Col>
-                                <Col lg="4">
-                                    <Card className="card-chart">
-                                        <CardHeader>
-                                            <h5 className="card-category">Satisfacción de las Usuarias</h5>
-                                            <CardTitle tag="h3">
-                                                <i className="tim-icons icon-single-02 text-primary" />{" "}
+                                                    </CardHeader>
+                                                    <CardBody>
+                                                        <div className="chart-area">
+                                                            <Bar
+                                                                data={this.state.services}
+                                                                options={chartExample3.options}
+                                                            />
+                                                        </div>
+                                                    </CardBody>
+                                                </Card>
+                                            </Col>
+                                            <Col lg="4">
+                                                <Card className="card-chart">
+                                                    <CardHeader>
+                                                        <h5 className="card-category">Satisfacción de las Usuarias</h5>
+                                                        <CardTitle tag="h3">
+                                                            <i className="tim-icons icon-single-02 text-primary" />{" "}
                             ¿Se resolvió la duda?
                         </CardTitle>
-                                        </CardHeader>
-                                        <CardBody>
-                                            <div className="chart-area">
-                                                <Bar
-                                                    data={this.state.satisfaction}
-                                                    options={chartExample3.options}
-                                                />
-                                            </div>
-                                        </CardBody>
-                                    </Card>
-                                </Col>
-                            </Row>
-                        </Collapse>
-                    </CardBody>
-                </Card>
-                {/* <small className="float-right">Periodo Consultado: {this.formatter.format(new Date(this.state.year, this.state.month-1))} de {this.state.year}</small>
-                <br/> */}
-                <small className="float-right">Última Actualización: {this.state.updateTime}</small>
-                <br/>
+                                                    </CardHeader>
+                                                    <CardBody>
+                                                        <div className="chart-area">
+                                                            <Bar
+                                                                data={this.state.satisfaction}
+                                                                options={chartExample3.options}
+                                                            />
+                                                        </div>
+                                                    </CardBody>
+                                                </Card>
+                                            </Col>
+                                        </Row>
+                                    </Collapse>
+                                </CardBody>
+                            </Card>
+                            {/* <small className="float-right">Periodo Consultado: {this.formatter.format(new Date(this.state.year, this.state.month-1))} de {this.state.year}</small>
+                            <br/> */}
+                            <small className="float-right">Última Actualización: {this.state.updateTime}</small>
+                            <br />
+                        </>}
             </div>
         </>)
     }
