@@ -1,4 +1,4 @@
-export const API = "https://chatbotrioachametrics.mybluemix.net" //process.env.API_URL ||
+export const API = "https://chatbotriohachametrics.mybluemix.net" //process.env.API_URL ||
 
 const myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");

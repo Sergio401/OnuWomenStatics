@@ -54,6 +54,7 @@ import { textSpanIntersectsWithTextSpan } from "typescript";
 class MessagesList extends React.Component {
 
     formatter = new Intl.DateTimeFormat('es', { month: 'long' });
+    dateFormmatter = new Intl.DateTimeFormat('es', { day: 'numeric', month: 'long' });
 
     constructor(props) {
         super(props);
@@ -66,7 +67,7 @@ class MessagesList extends React.Component {
             secondToogle: true,
             updateTime: this.getLastUpdateTime(),
             loading: true,
-            messagesList: {},
+            messagesList: [],
         }
         console.log(`STATE ORIGIN\n\n\n${JSON.stringify(this.state)}\n\n\n`)
     }
@@ -135,7 +136,7 @@ class MessagesList extends React.Component {
                 </Form>
 
                 {
-                    (this.state.messagesList.datasets[0].data.length !== 0) ?
+                    (this.state.messagesList.length === 0) ?
                         <>
                             <h1 className="text-center mt-md"><strong>No hay datos disponibles para el periodo consultado</strong></h1>
                         </> :
@@ -154,40 +155,21 @@ class MessagesList extends React.Component {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
+                                                        <th>Fecha</th>
                                                         <th>Teléfono</th>
                                                         <th>Mensaje</th>
-                                                        <th>Otro</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {/* {this.state.messagesList.map(row => (
-                                                        <tr key={`row-${row.id}`}>
-                                                            <th scope="row">{row.id}</th>
-                                                            <td>
-                                                                <div className="parent">{row.id}</div>
-                                                            </td>
-                                                            <td>{row.number}</td>
-                                                            <td>{row.message}</td>
+                                                    {this.state.messagesList.map((row, key) => (
+                                                        //_id,numero,mensaje,date
+                                                        <tr key={`row-${row._id}`}>
+                                                            <th scope="row">{key+1}</th>
+                                                            <td>{this.dateFormmatter.format(new Date(row.date))}</td>
+                                                            <td>{row.numero.split(':')[1]}</td>
+                                                            <td>{row.mensaje}</td>
                                                         </tr>
-                                                    ))} */}
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>123456</td>
-                                                        <td>Una Pregunta</td>
-                                                        <td/>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>56789</td>
-                                                        <td>Otra Pregunta</td>
-                                                        <td/>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>1234567</td>
-                                                        <td>Una Pregunta Más</td>
-                                                        <td/>
-                                                    </tr>
+                                                    ))}
                                                 </tbody>
                                             </Table>
                                         </Row>
@@ -223,7 +205,7 @@ class MessagesList extends React.Component {
     }
 
     requestData = async () => {
-        let messagesListData = {};
+        let messagesListData = [];
 
         let raw = String.raw`{"month":${this.state.month},"year":${this.state.year}}`;
 
@@ -233,31 +215,10 @@ class MessagesList extends React.Component {
 
         messagesListData = await APIRequest('/getothermessages/', { ...requestOptions, body: raw });
 
-        console.log(`\n\n\n\n${Object.keys(messagesListData)}\n\n\n\n${Object.values(messagesListData)}`)
-
+        //console.log(`\n\n\n\n${Object.keys(messagesListData)}\n\n\n\n${Object.keys(Object.values(messagesListData)[0])}`)
+        console.log(messagesListData)
         this.setState({
-            messagesList: {
-                labels: Object.keys(messagesListData),
-                datasets: [
-                    {
-                        label: "Mensajes por unidad de tiempo",
-                        fill: true,
-                        backgroundColor: "rgba(66,134,121,0)",
-                        borderColor: "#00d6b4",
-                        borderWidth: 2,
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        pointBackgroundColor: "#00d6b4",
-                        pointBorderColor: "rgba(255,255,255,0)",
-                        pointHoverBackgroundColor: "#00d6b4",
-                        pointBorderWidth: 20,
-                        pointHoverRadius: 4,
-                        pointHoverBorderWidth: 15,
-                        pointRadius: 4,
-                        data: Object.values(messagesListData),
-                    },
-                ],
-            },
+            messagesList: messagesListData,
             updateTime: this.getLastUpdateTime(),
             loading: false
         })
