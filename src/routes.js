@@ -17,6 +17,7 @@
 */
 import Dashboard from "views/Dashboard.js";
 import Login from "views/Login.js";
+import MessagesList from "views/Messages_List.js";
 
 const routes = [
   {
@@ -31,6 +32,13 @@ const routes = [
     name: "Dashboard",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    path: "/messages",
+    name: "Messages",
+    icon: "tim-icons icon-chart-pie-36",
+    component: MessagesList,
     layout: "/admin",
   },
 ];

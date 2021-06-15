@@ -58,7 +58,7 @@ class Dashboard extends React.Component {
         super(props);
 
         this.state = {
-            month: new Date().getMonth() - 3, //+ 1,
+            month: new Date().getMonth() + 1,
             year: new Date().getFullYear(),
             timer: undefined,
             firstToogle: true,
@@ -135,7 +135,7 @@ class Dashboard extends React.Component {
                             <Input type="button" className="button_form" onClick={this.updateRequestDate} value="Consultar"></Input>
                         </FormGroup>
                         {/* <FormGroup className="form_month float-right">
-                            <Input type="button" className="button_form" onClick={''} value="Mensajes No Comprendidos"></Input>
+                            <Input type="button" className="button_form" onClick={ () => this.props.history.push('/admin/messages') } value="Mensajes No Comprendidos"></Input>
                         </FormGroup> */}
                     </Row>
                 </Form>
