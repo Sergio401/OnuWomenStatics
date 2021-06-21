@@ -24,6 +24,8 @@ import {
   NavbarBrand,
   Navbar,
   Container,
+  Dropdown,
+  DropdownToggle
 } from "reactstrap";
 
 import manitasSolidarias from "../../assets/img/logos/Manitas Solidarias.png"
@@ -33,6 +35,23 @@ import AvatarLogo from "../../assets/img/logos/Avatar Riohacha Logo.png"
 function AdminNavbar(props) {
   const [collapseOpen] = React.useState(false);
   const [color, setcolor] = React.useState("navbar-transparent");
+
+  const [dropDownIsOpen, setdropDownIsOpen] = React.useState(false);
+  const handleClick = () => {
+    setdropDownIsOpen(!dropDownIsOpen);
+  };
+
+  function handleLogout() {
+    localStorage.removeItem('LOGED_IN');
+    window.location.href = "/admin/login";
+    //props.history.push('/admin/login');
+    // <Redirect
+    //   to={{
+    //     pathname: "/admin/login"
+    //   }}
+    // />
+  }
+
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
     // Specify how to clean up after this effect:
@@ -66,10 +85,24 @@ function AdminNavbar(props) {
               <h4>{props.brandText.split('-')[1]}</h4>
             </NavbarBrand>
           </div>
-          <img width="100rem"
+          {/* <img width="100rem"
             className="nabvar-avatar"
             alt="ONU Mujeres"
-            src={AvatarLogo} />
+            src={AvatarLogo} /> */}
+          <Dropdown isOpen={dropDownIsOpen} toggle={handleClick}>
+            <DropdownToggle tag="div">
+              <img width="100rem"
+                className="nabvar-avatar"
+                alt="ONU Mujeres"
+                src={AvatarLogo} />
+            </DropdownToggle>
+            <ul className="dropdown-menu dropdown-menu-right show">
+              {/* <li className="header-title">Opciones</li> */}
+              <li className="">
+                <button className="btn btn-info" onClick={() => handleLogout()}>Logout</button>
+              </li>
+            </ul>
+          </Dropdown>
         </Container>
       </Navbar>
     </>
