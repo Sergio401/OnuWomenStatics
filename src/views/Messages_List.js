@@ -90,6 +90,20 @@ class MessagesList extends React.Component {
         clearInterval(this.state.timer);
     }
 
+    formatNumber = (number) => {
+        //+573208181030
+        //Filter only numbers from the input
+        let cleaned = number.split('+57')[1] 
+
+        //Check if the input is of correct length
+        let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+
+        if (match) {
+            return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+        };
+        return number.split(':')[1];
+    }
+
     render() {
         return localStorage.getItem('LOGED_IN') ?
             this.state.loading ? <Load /> : (<>
@@ -166,7 +180,7 @@ class MessagesList extends React.Component {
                                                             <tr key={`row-${row._id}`}>
                                                                 <th scope="row">{key + 1}</th>
                                                                 <td>{this.dateFormmatter.format(new Date(row.date))}</td>
-                                                                <td>{row.numero.split(':')[1]}</td>
+                                                                <td>{this.formatNumber(row.numero)}</td>
                                                                 <td>{row.mensaje}</td>
                                                             </tr>
                                                         ))}
