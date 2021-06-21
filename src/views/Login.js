@@ -47,7 +47,14 @@ function Login(props) {
         let login_response = await APIRequest('/login/', { ...requestOptions, body: raw });
         //(username === "admin" && password === "admin") ? props.history.push('/admin/dashboard') : console.log("ok")
 
-        login_response.success ? props.history.push('/admin/dashboard') : alert(login_response.message)//console.log(login_response)
+        //login_response.success ? props.history.push('/admin/dashboard') : alert(login_response.message)//console.log(login_response)
+        
+        if (login_response.success) {
+            localStorage.setItem('LOGED_IN', true);
+            props.history.push('/admin/dashboard');
+        } else { 
+            alert(login_response.message)//console.log(login_response)
+        }
     }
 
     return (
